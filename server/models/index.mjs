@@ -8,7 +8,7 @@ import createPatientEntity from './patient.mjs'
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
-  storage: './db.sqlite',
+  storage: './database.db',
   logQueryParameters: true
 })
 
@@ -49,7 +49,7 @@ cycle.belongsTo(patient)
 
 try {
   await sequelize.sync({
-    alter: true
+    alter: false
   })
 } catch (err) {
   console.warn(err)

@@ -31,6 +31,9 @@ export default (sequelize, DataTypes) => {
     },
     notes:{
         type: DataTypes.TEXT,
+    },
+    token:{
+      type:DataTypes.TEXT
     }
   });
 };
