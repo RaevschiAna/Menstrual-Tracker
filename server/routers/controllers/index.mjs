@@ -7,7 +7,5 @@ import comment from './comment-controller.mjs'
 export default {
   auth,
   project,
-  task,
-  user,
-  comment
+  user
 }

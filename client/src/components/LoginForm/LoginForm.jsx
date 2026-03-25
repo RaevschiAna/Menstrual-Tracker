@@ -41,7 +41,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      const from = location.state?.from || '/projects'
+      const from = location.state?.from || '/'
       navigate(from)
     }
   }, [isAuthenticated, location.state, navigate])

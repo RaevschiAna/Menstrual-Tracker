@@ -12,21 +12,6 @@ apiRouter.post('/users/:uid/projects', controllers.project.createOwnedProject)
 apiRouter.put('/users/:uid/projects/:pid', middleware.getPermMiddleware('pid', ['write']), controllers.project.updateOwnedProject)
 apiRouter.delete('/users/:uid/projects/:pid', middleware.getPermMiddleware('pid', ['write']), controllers.project.deleteOwnedProject)
 
-// task endpoints
-apiRouter.get('/users/:uid/projects/:pid/tasks', controllers.task.getAllTasksForProject)
-apiRouter.get('/users/:uid/projects/:pid/tasks/:tid', controllers.task.getOneTaskForProject)
-apiRouter.post('/users/:uid/projects/:pid/tasks', middleware.getPermMiddleware('pid', ['write']), controllers.task.createOwnedTaskForProject)
-apiRouter.put('/users/:uid/projects/:pid/tasks/:tid', middleware.getPermMiddleware('pid', ['write']), controllers.task.updateOwnedTaskForProject)
-apiRouter.delete('/users/:uid/projects/:pid/tasks/:tid', middleware.getPermMiddleware('pid', ['write']), controllers.task.deleteOwnedTaskForProject)
-apiRouter.post('/users/:uid/projects/:pid/tasks/:tid/assignments', middleware.getPermMiddleware('pid', ['write']), controllers.task.assignTaskToUser)
-apiRouter.put('/users/:uid/projects/:pid/tasks/:tid/status', middleware.assignedTaskMiddleware, controllers.task.updateAssignedTaskStatus)
-
-// comment endpoints
-apiRouter.get('/users/:uid/projects/:pid/tasks/:tid/comments', controllers.comment.getAllCommentsForProject)
-apiRouter.get('/users/:uid/projects/:pid/tasks/:tid/comments/:cid', controllers.comment.getOneCommentForProject)
-apiRouter.post('/users/:uid/projects/:pid/tasks/:tid/comments', middleware.getPermMiddleware('pid', ['write']), controllers.comment.createOwnedCommentForProject)
-apiRouter.put('/users/:uid/projects/:pid/tasks/:tid/comments/:cid', middleware.getPermMiddleware('pid', ['write']), controllers.comment.updateOwnedCommentForProject)
-apiRouter.delete('/users/:uid/projects/:pid/tasks/:tid/comments/:cid', middleware.getPermMiddleware('pid', ['write']), controllers.comment.deleteOwnedCommentForProject)
 
 // get user profile
 apiRouter.get('/users/:uid/profile', controllers.user.getUserProfile)

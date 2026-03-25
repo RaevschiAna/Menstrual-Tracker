@@ -7,17 +7,14 @@ import AuthGuard from '../AuthGuard'
 import LoginForm from '../LoginForm'
 import ProjectList from '../ProjectList'
 import ProjectForm from '../ProjectForm/ProjectForm'
-import TaskList from '../TaskList'
-import TaskForm from '../TaskForm'
-import TaskDetails from '../TaskDetails'
 import Dashboard from '../Dashboard'
 import ErrorDisplay from '../ErrorDisplay'
-import CommentList from '../CommentList'
-import CommentForm from '../CommentForm' 
 import RegisterForm from '../RegisterForm'
 import UserList from '../UserList'
 
 import { logout } from '../../stores/actions/user-actions'
+import Sidebar from '../Sidebar'
+import Calendar from 'react-calendar'
 
 // selectors
 const userDataSelector = state => state.user.data
@@ -68,7 +65,7 @@ const App = () => {
             path='/projects'
             element={
               <AuthGuard isAuthenticated={isAuthenticated}>
-                <ProjectList />
+                <Calendar />
               </AuthGuard>
             }
           />
@@ -78,46 +75,6 @@ const App = () => {
             element={
               <AuthGuard isAuthenticated={isAuthenticated}>
                 <ProjectForm />
-              </AuthGuard>
-            }
-          />
-          <Route
-            path='/projects/:pid/tasks'
-            element={
-              <AuthGuard isAuthenticated={isAuthenticated}>
-                <TaskList />
-              </AuthGuard>
-            }
-          />
-          <Route
-            path='/projects/:pid/tasks/new'
-            element={
-              <AuthGuard isAuthenticated={isAuthenticated}>
-                <TaskForm />
-              </AuthGuard>
-            }
-          />
-          <Route
-            path='/projects/:pid/tasks/:tid'
-            element={
-              <AuthGuard isAuthenticated={isAuthenticated}>
-                <TaskDetails />
-              </AuthGuard>
-            }
-          />
-          <Route
-            path='/projects/:pid/tasks/:tid/comments'
-            element={
-              <AuthGuard isAuthenticated={isAuthenticated}>
-                <CommentList />
-              </AuthGuard>
-            }
-          />
-          <Route
-            path='/projects/:pid/tasks/:tid/comments/new'
-            element={
-              <AuthGuard isAuthenticated={isAuthenticated}>
-                <CommentForm />
               </AuthGuard>
             }
           />

@@ -2,6 +2,7 @@ import './Dashboard.css'
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import PatientDashboard from './PatientDashboard/PatientDashboard'
 
 // selectors
 const userTypeSelector = state => state.user.data.type
@@ -11,7 +12,8 @@ const Dashboard = () => {
 
   return (
     <div className='dashboard'>
-      <h1>Dashboard for {userType}</h1>
+      <h1>Welcome to your Home Page</h1>
+      <PatientDashboard/>
 
       {userType === 'admin' && (
         <div>
