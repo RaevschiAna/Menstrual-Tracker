@@ -29,9 +29,16 @@ const RegisterForm = () => {
 
 
     const isAuthenticated = !!userData.token
+    const [formError, setFormError] = useState('')
 
     const handleRegisterClick = async () => {
-        const action = await register(email, password, firstName, lastName, dateOfBirth, height, weight)
+        if (!email.trim() || !password || !firstName.trim() || !lastName.trim() || !dateOfBirth || !height || !weight) {
+            setFormError('Please fill in all required fields')
+            return
+        }
+
+        setFormError('')
+        const action = await register(email.trim(), password, firstName.trim(), lastName.trim(), dateOfBirth, Number(height), Number(weight))
         dispatch(action)
         if (!error) {
             navigate('/login')
@@ -88,9 +95,9 @@ const RegisterForm = () => {
                 <button onClick={handleRegisterClick} disabled={loading}>
                     {loading ? 'Registering...' : 'Register'}
                 </button>
-                {error && (
+                {(formError || error) && (
                     <div className='error'>
-                        Register failed
+                        {formError || 'Register failed'}
                     </div>
                 )}
             </div>

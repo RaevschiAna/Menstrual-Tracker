@@ -20,11 +20,18 @@ const LoginForm = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [formError, setFormError] = useState('')
 
   const isAuthenticated = !!userData.token
 
   const handleLoginClick = async () => {
-    const action = await login(email, password)
+    if (!email.trim() || !password) {
+      setFormError('Please enter email and password')
+      return
+    }
+
+    setFormError('')
+    const action = await login(email.trim(), password)
     dispatch(action)
   }
   
@@ -58,9 +65,9 @@ const LoginForm = () => {
         <button onClick={handleLoginClick} disabled={loading}>
           {loading ? 'Logging in...' : 'Login'}
         </button>
-        {error && (
+        {(formError || error) && (
           <div className='error'>
-            Login failed
+            {formError || 'Login failed'}
           </div>
         )}
         <button onClick={handleRegisterClick}>

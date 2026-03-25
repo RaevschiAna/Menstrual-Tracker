@@ -4,9 +4,15 @@ import jwt from 'jsonwebtoken'
 
 const login = async (req, res, next) => {
   try {
+    const { email, password } = req.body
+
+    if (!email || !email.trim() || !password) {
+      return res.status(400).json({ message: 'Email and password are required' })
+    }
+
     const user = await models.patient.findOne({
       where: {
-        email: req.body.email
+        email: email.trim()
       }
     })
     if (user) {
@@ -48,14 +54,20 @@ const logout = async (req, res, next) => {
 
 const register = async (req, res, next) => {
   try {
+    const { email, password, firstName, lastName, dateOfBirth, height, weight } = req.body
+
+    if (!email || !email.trim() || !password || !firstName || !lastName || !dateOfBirth || !height || !weight) {
+      return res.status(400).json({ message: 'All fields are required for registration' })
+    }
+
     const user = await models.patient.create({
-      email: req.body.email,
-      passwordHash: await bcrypt.hash(req.body.password, 10),
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      dateOfBirth: req.body.dateOfBirth,
-      height: req.body.height,
-      weight: req.body.weight
+      email: email.trim(),
+      passwordHash: await bcrypt.hash(password, 10),
+      firstName,
+      lastName,
+      dateOfBirth,
+      height,
+      weight
     })
     res.status(201).json(user)
   } catch (err) {
