@@ -38,7 +38,7 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        error: action.payload || action.error || 'User auth error'
+        error: action.payload?.message || action.error || 'User auth error'
       }
 
     default:

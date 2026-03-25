@@ -17,7 +17,8 @@ export const login = async (email, password) => {
       })
 
       if (!response.ok) {
-        throw response
+        const errorData = await response.json()
+        throw new Error(errorData.message || 'Login failed')
       }
 
       // original: this.data = await response.json()
@@ -43,7 +44,8 @@ export const logout = async () => {
       })
 
       if (!response.ok) {
-        throw response
+        const errorData = await response.json()
+        throw new Error(errorData.message || 'Logout failed')
       }
 
       return true
@@ -72,7 +74,8 @@ export const register = async (email, password, firstName, lastName, dateOfBirth
       })
 
       if (!response.ok) {
-        throw response
+        const errorData = await response.json()
+        throw new Error(errorData.message || 'Registration failed')
       }
 
       // original: this.data = await response.json()

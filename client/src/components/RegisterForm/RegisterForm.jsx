@@ -30,6 +30,7 @@ const RegisterForm = () => {
 
     const isAuthenticated = !!userData.token
     const [formError, setFormError] = useState('')
+    const [hasSubmitted, setHasSubmitted] = useState(false)
 
     const handleRegisterClick = async () => {
         if (!email.trim() || !password || !firstName.trim() || !lastName.trim() || !dateOfBirth || !height || !weight) {
@@ -38,18 +39,28 @@ const RegisterForm = () => {
         }
 
         setFormError('')
+        setHasSubmitted(true)
         const action = await register(email.trim(), password, firstName.trim(), lastName.trim(), dateOfBirth, Number(height), Number(weight))
         dispatch(action)
-        if (!error) {
+    }
+
+    useEffect(() => {
+        if (hasSubmitted && !loading && !error) {
             navigate('/login')
         }
-    }
+    }, [hasSubmitted, loading, error, navigate])
+
+    useEffect(() => {
+        if (error) {
+            setHasSubmitted(false)
+        }
+    }, [error])
 
 
     return (
         <div className='register-form'>
             <div className='form-container'>
-                <h1>Register</h1>
+                <h1>Create account</h1>
                 <input
                     type='text'
                     placeholder='First Name'
@@ -97,7 +108,7 @@ const RegisterForm = () => {
                 </button>
                 {(formError || error) && (
                     <div className='error'>
-                        {formError || 'Register failed'}
+                        {formError || error}
                     </div>
                 )}
             </div>

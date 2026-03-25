@@ -60,6 +60,16 @@ const register = async (req, res, next) => {
       return res.status(400).json({ message: 'All fields are required for registration' })
     }
 
+    const existingUser = await models.patient.findOne({
+      where: {
+        email: email.trim()
+      }
+    })
+
+    if (existingUser) {
+      return res.status(409).json({ message: 'Email already registered' })
+    }
+
     const user = await models.patient.create({
       email: email.trim(),
       passwordHash: await bcrypt.hash(password, 10),

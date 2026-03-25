@@ -71,7 +71,7 @@ const LoginForm = () => {
           </div>
         )}
         <button onClick={handleRegisterClick}>
-          Register
+          Sign up
         </button>
       </div>
     </div>
