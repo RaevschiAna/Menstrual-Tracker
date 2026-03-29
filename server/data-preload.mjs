@@ -29,3 +29,16 @@ setTimeout(() => {
     notes: 'Another patient'
   }).catch(() => { /* silently ignore duplicate */ })
 }, 500)
+
+// Insert doctor, silently ignore if exists
+const hash3 = bcrypt.hashSync('welcome', 10)
+setTimeout(() => {
+  models.doctor.create({
+    email: 'dr@doctor.net',
+    passwordHash: hash3,
+    firstName: 'Dr.',
+    lastName: 'Smith',
+    specialization: 'Gynecologist',
+    licenceNumber: 'DL123456'
+  }).catch(() => { /* silently ignore duplicate */ })
+}, 1000)

@@ -1,0 +1,125 @@
+.daily-log-list-page {
+  max-width: 800px;
+}
+
+.dll-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.dll-header h1 {
+  margin: 0;
+  font-size: 26px;
+  color: #2c3e50;
+}
+
+.dll-btn-add {
+  padding: 10px 24px;
+  background: #5dade2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dll-btn-add:hover {
+  background: #3498db;
+}
+
+.dll-loading {
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+.dll-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #95a5a6;
+}
+
+.dll-empty p {
+  margin: 4px 0;
+  font-size: 15px;
+}
+
+.dll-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dll-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+.dll-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.dll-card-date {
+  font-size: 15px;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.dll-card-day {
+  font-size: 13px;
+  color: #fff;
+  background: #5dade2;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.dll-card-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.dll-tag {
+  display: flex;
+  flex-direction: column;
+  background: #eaf4fb;
+  padding: 8px 14px;
+  border-radius: 8px;
+  min-width: 80px;
+}
+
+.dll-tag-label {
+  font-size: 11px;
+  color: #7b8d9e;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.dll-tag-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.dll-card-symptoms {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: #555;
+}
+
+.dll-card-notes {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #7f8c8d;
+  font-style: italic;
+}

@@ -10,18 +10,31 @@ const login = async (req, res, next) => {
       return res.status(400).json({ message: 'Email and password are required' })
     }
 
-    const user = await models.patient.findOne({
+    // Try patient first
+    let user = await models.patient.findOne({
       where: {
         email: email.trim()
       }
     })
+    let userType = 'patient'
+
+    // If not found, try doctor
+    if (!user) {
+      user = await models.doctor.findOne({
+        where: {
+          email: email.trim()
+        }
+      })
+      userType = 'doctor'
+    }
+
     if (user) {
       const isPasswordValid = await bcrypt.compare(req.body.password, user.passwordHash)
       if (isPasswordValid) {
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET)
         user.token = token
         await user.save()
-        res.status(200).json({ token, email: user.email, id: user.id, type: user.type })
+        res.status(200).json({ token, email: user.email, id: user.id, type: userType })
       } else {
         res.status(401).json({ message: 'Invalid email or password' })
       }
@@ -35,11 +48,22 @@ const login = async (req, res, next) => {
 
 const logout = async (req, res, next) => {
   try {
-    const user = await models.patient.findOne({
+    // Try patient first
+    let user = await models.patient.findOne({
       where: {
         token: req.body.token
       }
     })
+
+    // If not found, try doctor
+    if (!user) {
+      user = await models.doctor.findOne({
+        where: {
+          token: req.body.token
+        }
+      })
+    }
+
     if (user) {
       user.token = null
       await user.save()

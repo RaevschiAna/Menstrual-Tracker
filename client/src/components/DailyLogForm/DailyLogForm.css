@@ -1,0 +1,164 @@
+.daily-log-form-page {
+  max-width: 700px;
+}
+
+.daily-log-form-page h1 {
+  font-size: 26px;
+  color: #2c3e50;
+  margin: 0 0 24px;
+}
+
+.dlf-error {
+  background: #fdecea;
+  color: #c0392b;
+  padding: 10px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.dlf-success {
+  background: #eafaf1;
+  color: #27ae60;
+  padding: 10px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.dlf-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.dlf-row {
+  display: flex;
+  gap: 20px;
+}
+
+.dlf-row .dlf-field {
+  flex: 1;
+}
+
+.dlf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dlf-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #34495e;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.dlf-field input[type='date'],
+.dlf-field input[type='text'],
+.dlf-field textarea {
+  padding: 10px 14px;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #2c3e50;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.dlf-field input:focus,
+.dlf-field textarea:focus {
+  border-color: #5dade2;
+}
+
+.dlf-field textarea {
+  resize: vertical;
+}
+
+/* Option buttons (flow, mood) */
+.dlf-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dlf-option {
+  padding: 8px 18px;
+  border: 1px solid #d0d7de;
+  border-radius: 20px;
+  background: #fff;
+  color: #34495e;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dlf-option:hover {
+  border-color: #5dade2;
+  color: #5dade2;
+}
+
+.dlf-option.active {
+  background: #5dade2;
+  color: #fff;
+  border-color: #5dade2;
+}
+
+/* Pain slider */
+.dlf-field input[type='range'] {
+  width: 100%;
+  accent-color: #5dade2;
+}
+
+.dlf-pain-val {
+  font-size: 18px;
+  font-weight: 700;
+  color: #5dade2;
+  text-align: center;
+}
+
+/* Action buttons */
+.dlf-actions {
+  display: flex;
+  gap: 12px;
+  padding-top: 8px;
+}
+
+.dlf-btn-save {
+  padding: 12px 36px;
+  background: #5dade2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dlf-btn-save:hover {
+  background: #3498db;
+}
+
+.dlf-btn-save:disabled {
+  background: #a3c4d9;
+  cursor: not-allowed;
+}
+
+.dlf-btn-cancel {
+  padding: 12px 36px;
+  background: #ecf0f1;
+  color: #34495e;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dlf-btn-cancel:hover {
+  background: #d5dbdb;
+}

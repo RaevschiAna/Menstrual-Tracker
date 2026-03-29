@@ -8,6 +8,8 @@ import LoginForm from '../LoginForm'
 import ProjectList from '../ProjectList'
 import ProjectForm from '../ProjectForm/ProjectForm'
 import Dashboard from '../Dashboard'
+import DailyLogForm from '../DailyLogForm'
+import DailyLogList from '../DailyLogList'
 import ErrorDisplay from '../ErrorDisplay'
 import RegisterForm from '../RegisterForm'
 import UserList from '../UserList'
@@ -57,6 +59,24 @@ const App = () => {
             element={
               <AuthGuard isAuthenticated={isAuthenticated}>
                 <Dashboard />
+              </AuthGuard>
+            }
+          />
+
+          <Route
+            path='/daily-log'
+            element={
+              <AuthGuard isAuthenticated={isAuthenticated}>
+                <DailyLogList />
+              </AuthGuard>
+            }
+          />
+
+          <Route
+            path='/daily-log/new'
+            element={
+              <AuthGuard isAuthenticated={isAuthenticated}>
+                <DailyLogForm />
               </AuthGuard>
             }
           />

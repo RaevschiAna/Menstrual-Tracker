@@ -1,7 +1,7 @@
 import http from 'http'
 import app from './app.mjs'
 import dotenv from 'dotenv'
-//import './data-preload.mjs'  
+import './data-preload.mjs'
 
 dotenv.config()
 

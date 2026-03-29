@@ -24,6 +24,9 @@ export default (sequelize, DataTypes) => {
     licenceNumber: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    token: {
+      type: DataTypes.TEXT
     }
   });
 };

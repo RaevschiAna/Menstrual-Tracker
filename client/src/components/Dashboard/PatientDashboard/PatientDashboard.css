@@ -1,0 +1,157 @@
+.patient-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Header row */
+.pd-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.pd-welcome {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.pd-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pd-period-badge {
+  display: flex;
+  flex-direction: column;
+  background: #eaf4fb;
+  border: 1px solid #b8d8f0;
+  border-radius: 10px;
+  padding: 10px 18px;
+}
+
+.pd-period-label {
+  font-size: 11px;
+  color: #7b8d9e;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.pd-period-date {
+  font-size: 16px;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.pd-bell {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.pd-bell:hover {
+  background: #eaf4fb;
+}
+
+/* Calendar */
+.pd-calendar-section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* Add Daily Log */
+.pd-action {
+  display: flex;
+  justify-content: center;
+}
+
+.pd-btn-log {
+  padding: 12px 48px;
+  background: #5dade2;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pd-btn-log:hover {
+  background: #3498db;
+}
+
+/* Notifications */
+.pd-notifications {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+.pd-notifications h3 {
+  margin: 0 0 16px;
+  font-size: 16px;
+  color: #2c3e50;
+}
+
+.pd-empty {
+  color: #95a5a6;
+  font-size: 14px;
+}
+
+.pd-notif-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.pd-notif-item:last-child {
+  border-bottom: none;
+}
+
+.pd-notif-item input[type='checkbox'] {
+  margin-top: 3px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.pd-notif-body {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.pd-notif-text {
+  margin: 0;
+  font-size: 14px;
+  color: #2c3e50;
+}
+
+.pd-notif-time {
+  font-size: 12px;
+  color: #95a5a6;
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  .pd-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
