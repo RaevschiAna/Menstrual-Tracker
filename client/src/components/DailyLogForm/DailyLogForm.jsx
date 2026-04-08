@@ -55,6 +55,7 @@ const DailyLogForm = () => {
         symptoms: '',
         notes: ''
       })
+      setTimeout(() => navigate('/daily-log'), 1000)
     })
   }
 

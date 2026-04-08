@@ -36,12 +36,7 @@ const DailyLogList = () => {
   return (
     <Sidebar userType={userType}>
       <div className='daily-log-list-page'>
-        <div className='dll-header'>
-          <h1>Daily Logs</h1>
-          <button className='dll-btn-add' onClick={() => navigate('/daily-log/new')}>
-            + Add New Log
-          </button>
-        </div>
+        <h1>Daily Logs</h1>
 
         {loading && <p className='dll-loading'>Loading logs...</p>}
 

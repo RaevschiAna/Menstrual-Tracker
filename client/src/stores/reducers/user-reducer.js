@@ -1,8 +1,21 @@
-const initialState = {
-  data: {},
-  loading: false,
-  error: null
+const getInitialState = () => {
+  try {
+    const savedUser = localStorage.getItem('userData')
+    return {
+      data: savedUser ? JSON.parse(savedUser) : {},
+      loading: false,
+      error: null
+    }
+  } catch (e) {
+    return {
+      data: {},
+      loading: false,
+      error: null
+    }
+  }
 }
+
+const initialState = getInitialState()
 
 export default function userReducer(state = initialState, action) {
   switch (action.type) {
@@ -17,6 +30,7 @@ export default function userReducer(state = initialState, action) {
 
     case `LOGIN_FULFILLED`:
     case `REGISTER_FULFILLED`:
+      localStorage.setItem('userData', JSON.stringify(action.payload))
       return {
         ...state,
         loading: false,
@@ -25,6 +39,7 @@ export default function userReducer(state = initialState, action) {
       }
 
     case `LOGOUT_FULFILLED`:
+      localStorage.removeItem('userData')
       return {
         ...state,
         loading: false,
