@@ -5,8 +5,6 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import AuthGuard from '../AuthGuard'
 import LoginForm from '../LoginForm'
-import ProjectList from '../ProjectList'
-import ProjectForm from '../ProjectForm/ProjectForm'
 import Dashboard from '../Dashboard'
 import DailyLogForm from '../DailyLogForm'
 import DailyLogList from '../DailyLogList'
@@ -16,7 +14,6 @@ import UserList from '../UserList'
 
 import { logout } from '../../stores/actions/user-actions'
 import Sidebar from '../Sidebar'
-import Calendar from 'react-calendar'
 
 // selectors
 const userDataSelector = state => state.user.data
@@ -81,23 +78,6 @@ const App = () => {
             }
           />
 
-          <Route
-            path='/projects'
-            element={
-              <AuthGuard isAuthenticated={isAuthenticated}>
-                <Calendar />
-              </AuthGuard>
-            }
-          />
-
-          <Route
-            path='/projects/new'
-            element={
-              <AuthGuard isAuthenticated={isAuthenticated}>
-                <ProjectForm />
-              </AuthGuard>
-            }
-          />
           <Route
             path='/users'
             element={

@@ -14,8 +14,8 @@ const Sidebar = ({ userType, children }) => {
     if (userType === 'patient') {
       return [
         { icon: '📊', text: 'Dashboard', path: '/' },
-        { icon: '📝', text: 'Daily Log', path: '/daily-log' },
-        { icon: '🔄', text: 'Cycle History', path: '/cycle-history' },
+        { icon: '�', text: 'Daily Log', path: '/daily-log' },
+        { icon: '�', text: 'Cycle History', path: '/cycle-history' },
         { icon: '🔮', text: 'Predictions', path: '/predictions' }
       ]
     } else if (userType === 'doctor') {
@@ -37,7 +37,15 @@ const Sidebar = ({ userType, children }) => {
     <div className="layout">
       <div className={`sidebar ${isOpen ? '' : 'collapsed'}`}>
         <div className="sidebar-header">
-          <span className="sidebar-logo">💧</span>
+          <svg className="sidebar-logo" viewBox='0 0 24 24'>
+            <defs>
+              <linearGradient id='tearDropGradient' x1='0%' y1='0%' x2='0%' y2='100%'>
+                <stop offset='0%' style={{ stopColor: '#E8938F', stopOpacity: 1 }} />
+                <stop offset='100%' style={{ stopColor: '#D4605E', stopOpacity: 1 }} />
+              </linearGradient>
+            </defs>
+            <path d='M12 2C12 2 18 8 18 14C18 19.52 15.31 22 12 22C8.69 22 6 19.52 6 14C6 8 12 2 12 2Z' fill='url(#tearDropGradient)'/>
+          </svg>
           <span className="sidebar-title">Menstrual<br/>Tracker</span>
         </div>
         <button className="toggle-button" onClick={toggleSidebar}>

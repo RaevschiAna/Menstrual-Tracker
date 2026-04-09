@@ -4,13 +4,11 @@ import { useSelector } from 'react-redux'
 
 // selectors
 const userErrorSelector = state => state.user.error
-const projectErrorSelector = state => state.project.error
 const taskErrorSelector = state => state.task?.error
 const userSuggestionErrorSelector = state => state.userSuggestion?.error
 
 const ErrorDisplay = () => {
   const userError = useSelector(userErrorSelector)
-  const projectError = useSelector(projectErrorSelector)
   const taskError = useSelector(taskErrorSelector)
   const userSuggestionError = useSelector(userSuggestionErrorSelector)
 
@@ -21,7 +19,6 @@ const ErrorDisplay = () => {
   useEffect(() => {
     const error =
       userError ||
-      projectError ||
       taskError ||
       userSuggestionError
 
@@ -30,7 +27,7 @@ const ErrorDisplay = () => {
       const text = typeof error === 'string' ? error : 'An error occurred'
       setMessage(text)
     }
-  }, [userError, projectError, taskError, userSuggestionError])
+  }, [userError, taskError, userSuggestionError])
 
   // auto-hide after 5s
   useEffect(() => {
