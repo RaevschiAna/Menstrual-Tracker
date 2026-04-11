@@ -15,7 +15,7 @@ const PatientDashboard = () => {
     <div className='patient-dashboard'>
       {/* Header */}
       <div className='pd-header'>
-        <h1 className='pd-welcome'>Welcome, {user?.firstName || 'Patient'}!</h1>
+        <h1 className='pd-welcome'>Welcome, {user?.firstName && user?.lastName ? `${user.firstName} ${user.lastName}` : user?.firstName || 'Patient'}!</h1>
         <div className='pd-header-right'>
           <div className='pd-period-badge'>
             <span className='pd-period-label'>Next Predicted Period</span>

@@ -49,7 +49,7 @@ cycle.belongsTo(patient)
 
 try {
   await sequelize.sync({
-    alter: false
+    alter: true
   })
 } catch (err) {
   console.warn(err)

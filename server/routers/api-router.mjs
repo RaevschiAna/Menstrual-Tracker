@@ -9,4 +9,9 @@ apiRouter.use(middleware.auth)
 apiRouter.post('/daily-logs', controllers.dailyLog.create)
 apiRouter.get('/daily-logs', controllers.dailyLog.getAll)
 
+// Cycle History/Medical Form routes
+apiRouter.get('/cycle-history', controllers.cycle.getCycleHistory)
+apiRouter.post('/cycle-history', controllers.cycle.upsertCycleHistory)
+apiRouter.put('/cycle-history', controllers.cycle.upsertCycleHistory)
+
 export default apiRouter

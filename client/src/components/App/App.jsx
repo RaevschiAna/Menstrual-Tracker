@@ -8,6 +8,7 @@ import LoginForm from '../LoginForm'
 import Dashboard from '../Dashboard'
 import DailyLogForm from '../DailyLogForm'
 import DailyLogList from '../DailyLogList'
+import CycleHistory from '../CycleHistory'
 import ErrorDisplay from '../ErrorDisplay'
 import RegisterForm from '../RegisterForm'
 import UserList from '../UserList'
@@ -34,7 +35,6 @@ const App = () => {
       {isAuthenticated && (
         <div className='app-header'>
           <div>
-            <h5>Welcome, {userData.email}</h5>
           </div>
           <div>
             <button onClick={handleLogout}>
@@ -74,6 +74,15 @@ const App = () => {
             element={
               <AuthGuard isAuthenticated={isAuthenticated}>
                 <DailyLogForm />
+              </AuthGuard>
+            }
+          />
+
+          <Route
+            path='/cycle-history'
+            element={
+              <AuthGuard isAuthenticated={isAuthenticated}>
+                <CycleHistory />
               </AuthGuard>
             }
           />

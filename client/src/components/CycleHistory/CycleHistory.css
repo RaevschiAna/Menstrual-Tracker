@@ -1,0 +1,281 @@
+.cycle-history-page {
+  padding: 2rem;
+  max-width: 900px;
+}
+
+.cycle-history-page h1 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.ch-subtitle {
+  color: #7f8c8d;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.ch-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.ch-fieldset {
+  border: 1px solid #ecf0f1;
+  border-radius: 8px;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+}
+
+.ch-fieldset legend {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #c0392b;
+  padding: 0 0.5rem;
+}
+
+.ch-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.ch-field:last-child {
+  margin-bottom: 0;
+}
+
+.ch-field label {
+  font-weight: 500;
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
+.ch-field input[type='text'],
+.ch-field input[type='number'],
+.ch-field input[type='date'],
+.ch-field select,
+.ch-field textarea {
+  padding: 0.75rem;
+  border: 1px solid #bdc3c7;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  transition: border-color 0.3s;
+}
+
+.ch-field input:focus,
+.ch-field select:focus,
+.ch-field textarea:focus {
+  outline: none;
+  border-color: #4a90c7;
+  box-shadow: 0 0 0 3px rgba(74, 144, 199, 0.1);
+}
+
+.ch-field input:disabled,
+.ch-field select:disabled,
+.ch-field textarea:disabled {
+  background-color: #ecf0f1;
+  color: #7f8c8d;
+  cursor: not-allowed;
+}
+
+.ch-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.ch-field-hint {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  margin-bottom: 1rem;
+}
+
+.ch-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.ch-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.ch-checkbox-label input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: #c0392b;
+}
+
+.ch-checkbox-label input:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.ch-checkbox-label span {
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
+.ch-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.ch-btn-save,
+.ch-btn-edit,
+.ch-btn-cancel {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.ch-btn-save {
+  background-color: #27ae60;
+  color: white;
+}
+
+.ch-btn-save:hover:not(:disabled) {
+  background-color: #229954;
+}
+
+.ch-btn-save:disabled {
+  background-color: #a9dfbf;
+  cursor: not-allowed;
+}
+
+.ch-btn-edit {
+  background-color: #4a90c7;
+  color: white;
+}
+
+.ch-btn-edit:hover {
+  background-color: #3a7ab7;
+}
+
+.ch-btn-cancel {
+  background-color: #bdc3c7;
+  color: #2c3e50;
+}
+
+.ch-btn-cancel:hover {
+  background-color: #95a5a6;
+}
+
+.ch-error,
+.ch-success {
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.ch-error {
+  background-color: #fadbd8;
+  color: #c0392b;
+  border: 1px solid #e74c3c;
+}
+
+.ch-success {
+  background-color: #d5f4e6;
+  color: #27ae60;
+  border: 1px solid #27ae60;
+}
+
+.ch-loading {
+  padding: 2rem;
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 1rem;
+}
+
+/* Display View Styles */
+.ch-display-view {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.ch-display-card {
+  border: 2px solid #e8938f;
+  border-radius: 8px;
+  padding: 1.5rem;
+  background-color: #fef8f7;
+}
+
+.ch-display-card h2 {
+  color: #c0392b;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.ch-display-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.ch-display-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ch-display-item label {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ch-display-item p {
+  color: #34495e;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0.5rem 0;
+}
+
+.ch-conditions-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.ch-condition-tag {
+  display: inline-block;
+  background-color: #e8938f;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .cycle-history-page {
+    padding: 1rem;
+  }
+
+  .ch-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ch-fieldset {
+    padding: 1rem;
+  }
+}
