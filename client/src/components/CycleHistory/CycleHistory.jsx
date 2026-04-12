@@ -121,29 +121,29 @@ const CycleHistory = () => {
             {/* Personal History Display */}
             <div className='ch-display-card'>
               <h2>Personal Menstrual History</h2>
-              <div className='ch-display-grid'>
+              <div className='ch-display-list'>
                 {formData.ageAtFirstPeriod && (
-                  <div className='ch-display-item'>
-                    <label>Age at First Period</label>
-                    <p>{formData.ageAtFirstPeriod} years old</p>
+                  <div className='ch-display-row'>
+                    <span className='ch-display-label'>Age at First Period</span>
+                    <span className='ch-display-value'>{formData.ageAtFirstPeriod} years old</span>
                   </div>
                 )}
                 {formData.cycleLength && (
-                  <div className='ch-display-item'>
-                    <label>Average Cycle Length</label>
-                    <p>{formData.cycleLength} days</p>
+                  <div className='ch-display-row'>
+                    <span className='ch-display-label'>Average Cycle Length</span>
+                    <span className='ch-display-value'>{formData.cycleLength} days</span>
                   </div>
                 )}
                 {formData.periodDuration && (
-                  <div className='ch-display-item'>
-                    <label>Average Period Duration</label>
-                    <p>{formData.periodDuration} days</p>
+                  <div className='ch-display-row'>
+                    <span className='ch-display-label'>Average Period Duration</span>
+                    <span className='ch-display-value'>{formData.periodDuration} days</span>
                   </div>
                 )}
                 {formData.usualFlowLevel && (
-                  <div className='ch-display-item'>
-                    <label>Usual Flow Level</label>
-                    <p>{formData.usualFlowLevel}</p>
+                  <div className='ch-display-row'>
+                    <span className='ch-display-label'>Usual Flow Level</span>
+                    <span className='ch-display-value'>{formData.usualFlowLevel}</span>
                   </div>
                 )}
               </div>
@@ -162,9 +162,9 @@ const CycleHistory = () => {
                   {formData.conditionsFibroid && <span className='ch-condition-tag'>Uterine Fibroid</span>}
                 </div>
                 {formData.otherConditions && (
-                  <div className='ch-display-item' style={{ marginTop: '1rem' }}>
-                    <label>Other Conditions</label>
-                    <p>{formData.otherConditions}</p>
+                  <div className='ch-display-row'>
+                    <span className='ch-display-label'>Other Conditions</span>
+                    <span className='ch-display-value'>{formData.otherConditions}</span>
                   </div>
                 )}
               </div>
@@ -174,8 +174,8 @@ const CycleHistory = () => {
             {formData.medications && (
               <div className='ch-display-card'>
                 <h2>Current Medications</h2>
-                <div className='ch-display-item'>
-                  <p>{formData.medications}</p>
+                <div className='ch-display-row'>
+                  <span className='ch-display-value'>{formData.medications}</span>
                 </div>
               </div>
             )}
@@ -184,8 +184,8 @@ const CycleHistory = () => {
             {formData.notes && (
               <div className='ch-display-card'>
                 <h2>Additional Notes</h2>
-                <div className='ch-display-item'>
-                  <p>{formData.notes}</p>
+                <div className='ch-display-row'>
+                  <span className='ch-display-value'>{formData.notes}</span>
                 </div>
               </div>
             )}
@@ -197,7 +197,7 @@ const CycleHistory = () => {
                 className='ch-btn-edit'
                 onClick={() => setIsEditing(true)}
               >
-                Edit Cycle History
+                Edit History
               </button>
             </div>
           </div>

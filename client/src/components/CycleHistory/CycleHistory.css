@@ -1,6 +1,6 @@
 .cycle-history-page {
   padding: 2rem;
-  max-width: 900px;
+  max-width: 100%;
 }
 
 .cycle-history-page h1 {
@@ -21,16 +21,16 @@
 }
 
 .ch-fieldset {
-  border: 1px solid #ecf0f1;
+  border: 1px solid #d4e4f1;
   border-radius: 8px;
   padding: 1.5rem;
-  background-color: #f8f9fa;
+  background-color: #f5f9fc;
 }
 
 .ch-fieldset legend {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #c0392b;
+  color: #3a7cbd;
   padding: 0 0.5rem;
 }
 
@@ -57,7 +57,7 @@
 .ch-field select,
 .ch-field textarea {
   padding: 0.75rem;
-  border: 1px solid #bdc3c7;
+  border: 1px solid #bdd4e8;
   border-radius: 6px;
   font-size: 0.95rem;
   font-family: inherit;
@@ -69,7 +69,7 @@
 .ch-field textarea:focus {
   outline: none;
   border-color: #4a90c7;
-  box-shadow: 0 0 0 3px rgba(74, 144, 199, 0.1);
+  box-shadow: 0 0 0 3px rgba(74, 144, 199, 0.15);
 }
 
 .ch-field input:disabled,
@@ -111,7 +111,7 @@
   width: 18px;
   height: 18px;
   cursor: pointer;
-  accent-color: #c0392b;
+  accent-color: #4a90c7;
 }
 
 .ch-checkbox-label input:disabled {
@@ -128,6 +128,7 @@
   display: flex;
   gap: 1rem;
   margin-top: 2rem;
+  justify-content: center;
 }
 
 .ch-btn-save,
@@ -143,22 +144,25 @@
 }
 
 .ch-btn-save {
-  background-color: #27ae60;
+  background-color: #4a90c7;
   color: white;
 }
 
 .ch-btn-save:hover:not(:disabled) {
-  background-color: #229954;
+  background-color: #3a7ab7;
 }
 
 .ch-btn-save:disabled {
-  background-color: #a9dfbf;
+  background-color: #a3c8e4;
   cursor: not-allowed;
 }
 
 .ch-btn-edit {
   background-color: #4a90c7;
   color: white;
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  font-size: 1rem;
 }
 
 .ch-btn-edit:hover {
@@ -209,35 +213,94 @@
 }
 
 .ch-display-card {
-  border: 2px solid #e8938f;
+  border: 1px solid #d4e4f1;
   border-radius: 8px;
   padding: 1.5rem;
-  background-color: #fef8f7;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(74, 144, 199, 0.08);
+  width: 100%;
 }
 
 .ch-display-card h2 {
-  color: #c0392b;
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
+  color: #3a7cbd;
+  font-size: 1.15rem;
+  margin: 0;
   font-weight: 600;
+}
+
+.ch-display-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.ch-display-header h2 {
+  margin: 0;
+}
+
+.ch-edit-icon {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  opacity: 0.6;
+}
+
+.ch-edit-icon:hover {
+  background-color: rgba(74, 144, 199, 0.1);
+  opacity: 1;
 }
 
 .ch-display-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
+}
+
+.ch-display-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.ch-display-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.ch-display-row:last-child {
+  border-bottom: none;
+}
+
+.ch-display-label {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
+.ch-display-value {
+  color: #5a6c7d;
+  font-size: 0.95rem;
 }
 
 .ch-display-item {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #ecf0f1;
 }
 
 .ch-display-item label {
-  font-weight: 600;
+  font-weight: 700;
   color: #2c3e50;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -246,7 +309,7 @@
   color: #34495e;
   font-size: 1rem;
   margin: 0;
-  padding: 0.5rem 0;
+  padding: 0;
 }
 
 .ch-conditions-list {
@@ -258,9 +321,9 @@
 
 .ch-condition-tag {
   display: inline-block;
-  background-color: #e8938f;
+  background-color: #4a90c7;
   color: white;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.1rem;
   border-radius: 20px;
   font-size: 0.9rem;
   font-weight: 500;
