@@ -1,11 +1,43 @@
 .daily-log-form-page {
-  max-width: 700px;
+  width: 100%;
+  padding: 2rem 1.5rem;
 }
 
 .daily-log-form-page h1 {
-  font-size: 26px;
+  font-size: 1.5rem;
   color: #2c3e50;
-  margin: 0 0 24px;
+  margin: 0;
+}
+
+.dlf-top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.dlf-back-btn {
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid #c8d8e8;
+  background: #fff;
+  color: #4a6a8a;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dlf-back-btn:hover {
+  background: #eaf4fb;
+  color: #4a90c7;
+}
+
+.dlf-card {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #e0e6ed;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .dlf-error {
@@ -128,7 +160,7 @@
 
 .dlf-btn-save {
   padding: 12px 36px;
-  background: #5dade2;
+  background: #4a90c7;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -139,7 +171,7 @@
 }
 
 .dlf-btn-save:hover {
-  background: #3498db;
+  background: #3a7cbd;
 }
 
 .dlf-btn-save:disabled {

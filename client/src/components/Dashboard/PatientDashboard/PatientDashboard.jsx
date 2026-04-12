@@ -15,7 +15,12 @@ const PatientDashboard = () => {
     <div className='patient-dashboard'>
       {/* Header */}
       <div className='pd-header'>
-        <h1 className='pd-welcome'>Welcome, {user?.firstName && user?.lastName ? `${user.firstName} ${user.lastName}` : user?.firstName || 'Patient'}!</h1>
+        <div className='pd-welcome-row'>
+          <div className='pd-avatar'>
+            {user?.firstName ? user.firstName.charAt(0).toUpperCase() : 'P'}
+          </div>
+          <h1 className='pd-welcome'>Welcome, {user?.firstName || 'Patient'}!</h1>
+        </div>
         <div className='pd-header-right'>
           <div className='pd-period-badge'>
             <span className='pd-period-label'>Next Predicted Period</span>

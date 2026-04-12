@@ -15,6 +15,26 @@
   gap: 16px;
 }
 
+.pd-welcome-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pd-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #d0e2f1;
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
 .pd-welcome {
   margin: 0;
   font-size: 26px;

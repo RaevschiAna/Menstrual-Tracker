@@ -65,12 +65,18 @@ const DailyLogForm = () => {
   return (
     <Sidebar userType={userType}>
       <div className='daily-log-form-page'>
-        <h1>Daily Log Entry</h1>
+        <div className='dlf-top-header'>
+          <h1>New Daily Log</h1>
+          <button type='button' className='dlf-back-btn' onClick={() => navigate('/daily-log')}>
+            ← Back to Logs
+          </button>
+        </div>
 
         {error && <div className='dlf-error'>{error}</div>}
         {success && <div className='dlf-success'>Daily log saved!</div>}
 
-        <form className='dlf-form' onSubmit={handleSubmit}>
+        <div className='dlf-card'>
+          <form className='dlf-form' onSubmit={handleSubmit}>
           {/* Date & Cycle Day */}
           <div className='dlf-row'>
             <div className='dlf-field'>
@@ -171,11 +177,12 @@ const DailyLogForm = () => {
             <button type='submit' className='dlf-btn-save' disabled={loading}>
               {loading ? 'Saving...' : 'Save Log'}
             </button>
-            <button type='button' className='dlf-btn-cancel' onClick={() => navigate('/')}>
+            <button type='button' className='dlf-btn-cancel' onClick={() => navigate('/daily-log')}>
               Cancel
             </button>
           </div>
         </form>
+        </div>
       </div>
     </Sidebar>
   )
