@@ -9,7 +9,7 @@ const cycleDataSelector = state => state.cycle.data
 const cycleLoadingSelector = state => state.cycle.loading
 const cycleErrorSelector = state => state.cycle.error
 
-const CycleHistory = () => {
+const CycleHistory = ({ onLogout }) => {
   const dispatch = useDispatch()
   const userType = useSelector(userTypeSelector)
   const cycleData = useSelector(cycleDataSelector)
@@ -106,7 +106,7 @@ const CycleHistory = () => {
   }
 
   return (
-    <Sidebar userType={userType}>
+    <Sidebar userType={userType} onLogout={onLogout}>
       <div className='cycle-history-page'>
         <h1>Medical & Cycle History</h1>
         <p className='ch-subtitle'>Complete this form once. You can edit it anytime if needed.</p>

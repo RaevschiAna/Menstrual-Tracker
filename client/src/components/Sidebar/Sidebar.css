@@ -71,6 +71,7 @@ body {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  flex: 1;
 }
 
 .menu-item {
@@ -134,4 +135,31 @@ body {
 
 .sidebar.collapsed ~ .main-content {
   margin-left: 60px;
+}
+
+.logout-button {
+  padding: 12px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-radius: 8px;
+  margin: 10px;
+  font-size: 14px;
+  color: #5a7a9a;
+  background: transparent;
+  border: none;
+  transition: background 0.2s, color 0.2s;
+  width: calc(100% - 20px);
+  white-space: nowrap;
+}
+
+.logout-button:hover {
+  background-color: #d0e2f1;
+  color: #2c3e50;
+}
+
+.sidebar.collapsed .logout-button {
+  text-align: center;
+  justify-content: center;
 }

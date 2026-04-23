@@ -8,7 +8,7 @@ import Sidebar from '../Sidebar/Sidebar'
 const userTypeSelector = state => state.user.data.type
 const dailyLogLoadingSelector = state => state.dailyLog.loading
 
-const DailyLogForm = () => {
+const DailyLogForm = ({ onLogout }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const userType = useSelector(userTypeSelector)
@@ -63,7 +63,7 @@ const DailyLogForm = () => {
   const moodOptions = ['Happy', 'Calm', 'Sad', 'Anxious', 'Irritable', 'Energetic']
 
   return (
-    <Sidebar userType={userType}>
+    <Sidebar userType={userType} onLogout={onLogout}>
       <div className='daily-log-form-page'>
         <div className='dlf-top-header'>
           <h1>New Daily Log</h1>

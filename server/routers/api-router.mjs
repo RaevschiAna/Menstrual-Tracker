@@ -14,4 +14,8 @@ apiRouter.get('/cycle-history', controllers.cycle.getCycleHistory)
 apiRouter.post('/cycle-history', controllers.cycle.upsertCycleHistory)
 apiRouter.put('/cycle-history', controllers.cycle.upsertCycleHistory)
 
+// Doctor routes
+apiRouter.get('/doctors', controllers.doctor.getAllDoctors)
+apiRouter.post('/doctors/assign', controllers.doctor.assignDoctorToPatient)
+
 export default apiRouter

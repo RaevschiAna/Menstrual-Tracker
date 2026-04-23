@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllUserSuggestions } from '../../stores/actions/user-suggestion-actions'
+import Sidebar from '../Sidebar/Sidebar'
 
 const usersSelector = state => state.userSuggestion.data
 const userTypeSelector = state => state.user.data.type
 
-const UserList = () => {
+const UserList = ({ onLogout }) => {
   const dispatch = useDispatch()
 
   const users = useSelector(usersSelector)
@@ -29,21 +30,23 @@ const UserList = () => {
   if (userType !== 'admin') return null
 
   return (
-    <div>
-      <h1>Lista utilizatori</h1>
+    <Sidebar userType={userType} onLogout={onLogout}>
+      <div>
+        <h1>Lista utilizatori</h1>
 
-      <p>Total utilizatori: <strong>{users.length}</strong></p>
+        <p>Total utilizatori: <strong>{users.length}</strong></p>
 
-      <button onClick={handleRefresh}>Refresh</button>
+        <button onClick={handleRefresh}>Refresh</button>
 
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>
-            <strong>{user.email}</strong> — {user.type}
-          </li>
-        ))}
-      </ul>
-    </div>
+        <ul>
+          {users.map(user => (
+            <li key={user.id}>
+              <strong>{user.email}</strong> — {user.type}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Sidebar>
   )
 }
 

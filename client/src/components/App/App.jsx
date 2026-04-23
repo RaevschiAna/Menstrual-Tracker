@@ -12,16 +12,19 @@ import CycleHistory from '../CycleHistory'
 import ErrorDisplay from '../ErrorDisplay'
 import RegisterForm from '../RegisterForm'
 import UserList from '../UserList'
+import Doctors from '../Doctors'
 
 import { logout } from '../../stores/actions/user-actions'
 import Sidebar from '../Sidebar'
 
 // selectors
 const userDataSelector = state => state.user.data
+const userTypeSelector = state => state.user.data.type
 
 const App = () => {
   const dispatch = useDispatch()
   const userData = useSelector(userDataSelector)
+  const userType = useSelector(userTypeSelector)
 
   const isAuthenticated = !!userData.token
 
@@ -32,18 +35,6 @@ const App = () => {
 
   return (
     <div className='app'>
-      {isAuthenticated && (
-        <div className='app-header'>
-          <div>
-          </div>
-          <div>
-            <button onClick={handleLogout}>
-              Logout
-            </button>
-          </div>
-        </div>
-      )}
-
       <ErrorDisplay />
 
       <Router>
@@ -55,7 +46,7 @@ const App = () => {
             path='/'
             element={
               <AuthGuard isAuthenticated={isAuthenticated}>
-                <Dashboard />
+                <Dashboard onLogout={isAuthenticated ? handleLogout : undefined} />
               </AuthGuard>
             }
           />
@@ -64,7 +55,7 @@ const App = () => {
             path='/daily-log'
             element={
               <AuthGuard isAuthenticated={isAuthenticated}>
-                <DailyLogList />
+                <DailyLogList onLogout={handleLogout} />
               </AuthGuard>
             }
           />
@@ -73,7 +64,7 @@ const App = () => {
             path='/daily-log/new'
             element={
               <AuthGuard isAuthenticated={isAuthenticated}>
-                <DailyLogForm />
+                <DailyLogForm onLogout={handleLogout} />
               </AuthGuard>
             }
           />
@@ -82,7 +73,18 @@ const App = () => {
             path='/cycle-history'
             element={
               <AuthGuard isAuthenticated={isAuthenticated}>
-                <CycleHistory />
+                <CycleHistory onLogout={handleLogout} />
+              </AuthGuard>
+            }
+          />
+
+          <Route
+            path='/doctors'
+            element={
+              <AuthGuard isAuthenticated={isAuthenticated}>
+                <Sidebar userType={userType} onLogout={handleLogout}>
+                  <Doctors />
+                </Sidebar>
               </AuthGuard>
             }
           />
@@ -91,7 +93,7 @@ const App = () => {
             path='/users'
             element={
               <AuthGuard isAuthenticated={isAuthenticated}>
-                <UserList />
+                <UserList onLogout={handleLogout} />
               </AuthGuard>
             }
           />

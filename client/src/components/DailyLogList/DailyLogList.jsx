@@ -10,7 +10,7 @@ const userSelector = state => state.user.data
 const logsSelector = state => state.dailyLog.data
 const loadingSelector = state => state.dailyLog.loading
 
-const DailyLogList = () => {
+const DailyLogList = ({ onLogout }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const userType = useSelector(userTypeSelector)
@@ -53,7 +53,7 @@ const DailyLogList = () => {
   const filteredLogs = getFilteredLogs()
 
   return (
-    <Sidebar userType={userType}>
+    <Sidebar userType={userType} onLogout={onLogout}>
       <div className='daily-log-list-page'>
         {/* Header */}
         <div className='dll-top-header'>

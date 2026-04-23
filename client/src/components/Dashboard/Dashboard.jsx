@@ -8,11 +8,11 @@ import DoctorDashboard from './DoctorDashboard/DoctorDashboard'
 // selectors
 const userTypeSelector = state => state.user.data.type
 
-const Dashboard = () => {
+const Dashboard = ({ onLogout }) => {
   const userType = useSelector(userTypeSelector)
 
   return (
-    <Sidebar userType={userType}>
+    <Sidebar userType={userType} onLogout={onLogout}>
       <div className='dashboard-content'>
         {userType === 'patient' && <PatientDashboard />}
         {userType === 'doctor' && <DoctorDashboard />}
