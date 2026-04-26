@@ -101,10 +101,59 @@ const getMyPatients = async (req, res, next) => {
   }
 }
 
+const getPatientLogs = async (req, res, next) => {
+  try {
+    if (req.userType !== 'doctor') {
+      return res.status(403).json({ message: 'Only doctors can view patient logs' })
+    }
+
+    const { patientId } = req.params
+
+    // Verify this patient is actually assigned to the requesting doctor
+    const patients = await req.user.getPatients({ where: { id: patientId } })
+    if (patients.length === 0) {
+      return res.status(403).json({ message: 'Patient not assigned to you' })
+    }
+
+    const logs = await models.daylyLog.findAll({
+      where: { patientId },
+      order: [['logDate', 'DESC']]
+    })
+
+    res.status(200).json(logs)
+  } catch (err) {
+    next(err)
+  }
+}
+
+const getPatientCycleHistory = async (req, res, next) => {
+  try {
+    if (req.userType !== 'doctor') {
+      return res.status(403).json({ message: 'Only doctors can view patient cycle history' })
+    }
+
+    const { patientId } = req.params
+
+    // Verify this patient is actually assigned to the requesting doctor
+    const patients = await req.user.getPatients({ where: { id: patientId } })
+    if (patients.length === 0) {
+      return res.status(403).json({ message: 'Patient not assigned to you' })
+    }
+
+    const history = await models.cycle.findOne({ where: { patientId } })
+
+    res.status(200).json(history || {})
+  } catch (err) {
+    next(err)
+  }
+}
+
 export default {
   getAllDoctors,
   getAssignedDoctor,
   assignDoctorToPatient,
   unassignDoctor,
-  getMyPatients
+  getMyPatients,
+  getPatientLogs,
+  getPatientCycleHistory
 }

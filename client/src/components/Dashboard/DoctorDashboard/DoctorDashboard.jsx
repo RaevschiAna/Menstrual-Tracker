@@ -1,11 +1,7 @@
+import Patients from '../../Patients'
 
-import './DoctorDashboard.css'
-
-const DoctorDashboard=()=>{
-    return(
-        <div>
-HELLO mi doctor
-        </div>
-    )
+const DoctorDashboard = () => {
+  return <Patients />
 }
+
 export default DoctorDashboard

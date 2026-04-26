@@ -22,5 +22,7 @@ apiRouter.delete('/doctors/unassign', controllers.doctor.unassignDoctor)
 
 // Patient list for doctors
 apiRouter.get('/patients', controllers.doctor.getMyPatients)
+apiRouter.get('/patients/:patientId/logs', controllers.doctor.getPatientLogs)
+apiRouter.get('/patients/:patientId/cycle-history', controllers.doctor.getPatientCycleHistory)
 
 export default apiRouter
