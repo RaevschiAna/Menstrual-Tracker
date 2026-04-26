@@ -13,6 +13,7 @@ import ErrorDisplay from '../ErrorDisplay'
 import RegisterForm from '../RegisterForm'
 import UserList from '../UserList'
 import Doctors from '../Doctors'
+import Patients from '../Patients'
 
 import { logout } from '../../stores/actions/user-actions'
 import Sidebar from '../Sidebar'
@@ -84,6 +85,17 @@ const App = () => {
               <AuthGuard isAuthenticated={isAuthenticated}>
                 <Sidebar userType={userType} onLogout={handleLogout}>
                   <Doctors />
+                </Sidebar>
+              </AuthGuard>
+            }
+          />
+
+          <Route
+            path='/patients'
+            element={
+              <AuthGuard isAuthenticated={isAuthenticated}>
+                <Sidebar userType={userType} onLogout={handleLogout}>
+                  <Patients />
                 </Sidebar>
               </AuthGuard>
             }

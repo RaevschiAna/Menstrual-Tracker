@@ -72,6 +72,13 @@
   margin-top: 2px;
 }
 
+.pd-period-confidence {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 3px;
+  font-style: italic;
+}
+
 .pd-bell {
   background: #eaf4fb;
   border: 1px solid #c5e3f6;

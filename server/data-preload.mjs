@@ -30,15 +30,29 @@ setTimeout(() => {
   }).catch(() => { /* silently ignore duplicate */ })
 }, 500)
 
-// Insert doctor, silently ignore if exists
+// Insert doctors, silently ignore if exists
 const hash3 = bcrypt.hashSync('welcome', 10)
+const hash4 = bcrypt.hashSync('welcome', 10)
+const hash5 = bcrypt.hashSync('welcome', 10)
+
 setTimeout(() => {
   models.doctor.create({
-    email: 'dr@doctor.net',
-    passwordHash: hash3,
-    firstName: 'Dr.',
-    lastName: 'Smith',
-    specialization: 'Gynecologist',
-    licenceNumber: 'DL123456'
+    email: 'dr.johnson@doctor.net',
+    passwordHash: hash4,
+    firstName: 'Dr. H',
+    lastName: 'Johnson',
+    specialization: 'Reproductive Endocrinologist',
+    licenceNumber: 'DL123457'
   }).catch(() => { /* silently ignore duplicate */ })
 }, 1000)
+
+setTimeout(() => {
+  models.doctor.create({
+    email: 'dr.testherny@doctor.net',
+    passwordHash: hash5,
+    firstName: 'Dr.',
+    lastName: 'Testherny',
+    specialization: 'Obstetrician',
+    licenceNumber: 'DL123458'
+  }).catch(() => { /* silently ignore duplicate */ })
+}, 1500)

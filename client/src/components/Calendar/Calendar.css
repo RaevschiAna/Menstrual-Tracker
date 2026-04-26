@@ -180,6 +180,60 @@
 .calendar .cal-day-heavy,
 .calendar .cal-day-medium,
 .calendar .cal-day-light,
-.calendar .cal-day-logged {
+.calendar .cal-day-logged,
+.calendar .cal-day-predicted {
   flex-direction: column;
+}
+
+/* Predicted period days — soft pink fill with dashed border */
+.calendar .cal-day-predicted abbr,
+.calendar .react-calendar__tile--now.cal-day-predicted abbr {
+  background: #fde8e7 !important;
+  color: #c0392b !important;
+  border: 2px dashed #e8938f !important;
+  box-sizing: border-box;
+}
+
+.cal-dot-predicted {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #e8938f;
+  margin: 2px auto 0;
+}
+
+/* Legend */
+.calendar-legend {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #5a7a9a;
+  font-weight: 500;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.legend-dot.heavy  { background: #d4605e; }
+.legend-dot.medium { background: #e8938f; }
+.legend-dot.light  { background: #f2b8b5; }
+.legend-dot.predicted {
+  background: #fde8e7;
+  border: 2px dashed #e8938f;
+  box-sizing: border-box;
 }

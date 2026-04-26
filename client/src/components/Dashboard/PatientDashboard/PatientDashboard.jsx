@@ -1,15 +1,49 @@
 import './PatientDashboard.css'
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useMemo } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Calendar from '../../Calendar'
+import { getCycleHistory } from '../../../stores/actions/cycle-actions'
+import { getDailyLogs } from '../../../stores/actions/daily-log-actions'
+import { predictNextPeriod } from '../../../utils/cyclePredictor'
 
-const userSelector = state => state.user.data
+const userSelector        = state => state.user.data
+const logsSelector        = state => state.dailyLog.data
+const cycleHistorySelector = state => state.cycle.data
+
+const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+const formatDate = (date) => {
+  if (!date) return '—'
+  return `${MONTH_NAMES[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
+}
+
+const confidenceLabel = (confidence, basedOn) => {
+  if (confidence === 'high')   return `Based on ${basedOn}`
+  if (confidence === 'medium') return `Estimated · ${basedOn}`
+  return 'Not enough data yet'
+}
 
 const PatientDashboard = () => {
-  const user = useSelector(userSelector)
-  const navigate = useNavigate()
-  const [notifications] = useState([])
+  const dispatch    = useDispatch()
+  const user        = useSelector(userSelector)
+  const logs        = useSelector(logsSelector)
+  const cycleHistory = useSelector(cycleHistorySelector)
+  const navigate    = useNavigate()
+
+  useEffect(() => {
+    const load = async () => {
+      dispatch(await getDailyLogs())
+      dispatch(await getCycleHistory())
+    }
+    load()
+  }, [dispatch])
+
+  const prediction = useMemo(
+    () => predictNextPeriod(logs, cycleHistory),
+    [logs, cycleHistory]
+  )
 
   return (
     <div className='patient-dashboard'>
@@ -24,37 +58,26 @@ const PatientDashboard = () => {
         <div className='pd-header-right'>
           <div className='pd-period-badge'>
             <span className='pd-period-label'>Next Predicted Period</span>
-            <span className='pd-period-date'>—</span>
+            <span className='pd-period-date'>{formatDate(prediction.nextPeriodStart)}</span>
+            <span className='pd-period-confidence'>{confidenceLabel(prediction.confidence, prediction.basedOn)}</span>
           </div>
-          <button className='pd-bell'>🔔</button>
         </div>
       </div>
 
       {/* Calendar */}
       <div className='pd-calendar-section'>
-        <Calendar />
+        <Calendar predictedDays={prediction.predictedDays} />
       </div>
 
-      {/* Add Daily Log */}
+      {/* Log Period */}
       <div className='pd-action'>
-        <button className='pd-btn-log' onClick={() => navigate('/daily-log/new')}>Add Daily Log</button>
+        <button className='pd-btn-log' onClick={() => navigate('/daily-log/new')}>Log Period</button>
       </div>
 
       {/* Notifications */}
       <div className='pd-notifications'>
         <h3>Notifications</h3>
-        {notifications.length === 0 && (
-          <p className='pd-empty'>No notifications yet.</p>
-        )}
-        {notifications.map(n => (
-          <div key={n.id} className='pd-notif-item'>
-            <input type='checkbox' />
-            <div className='pd-notif-body'>
-              <p className='pd-notif-text'><strong>{n.doctor}</strong> {n.message}</p>
-              <span className='pd-notif-time'>{n.time}</span>
-            </div>
-          </div>
-        ))}
+        <p className='pd-empty'>No notifications yet.</p>
       </div>
     </div>
   )
