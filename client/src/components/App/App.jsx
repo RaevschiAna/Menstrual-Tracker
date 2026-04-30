@@ -14,6 +14,7 @@ import RegisterForm from '../RegisterForm'
 import UserList from '../UserList'
 import Doctors from '../Doctors'
 import Patients from '../Patients'
+import PatientClinicalNotes from '../PatientClinicalNotes'
 
 import { logout } from '../../stores/actions/user-actions'
 import Sidebar from '../Sidebar'
@@ -97,6 +98,15 @@ const App = () => {
                 <Sidebar userType={userType} onLogout={handleLogout}>
                   <Patients />
                 </Sidebar>
+              </AuthGuard>
+            }
+          />
+
+          <Route
+            path='/clinical-notes'
+            element={
+              <AuthGuard isAuthenticated={isAuthenticated}>
+                <PatientClinicalNotes onLogout={handleLogout} />
               </AuthGuard>
             }
           />

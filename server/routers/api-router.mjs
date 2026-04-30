@@ -24,5 +24,10 @@ apiRouter.delete('/doctors/unassign', controllers.doctor.unassignDoctor)
 apiRouter.get('/patients', controllers.doctor.getMyPatients)
 apiRouter.get('/patients/:patientId/logs', controllers.doctor.getPatientLogs)
 apiRouter.get('/patients/:patientId/cycle-history', controllers.doctor.getPatientCycleHistory)
+apiRouter.get('/patients/:patientId/clinical-notes', controllers.doctor.getClinicalNotes)
+apiRouter.post('/patients/:patientId/clinical-notes', controllers.doctor.addClinicalNote)
+
+// Patient's own clinical notes
+apiRouter.get('/clinical-notes', controllers.doctor.getPatientOwnNotes)
 
 export default apiRouter

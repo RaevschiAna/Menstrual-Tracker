@@ -144,6 +144,83 @@ const ReportModal = ({ patient, reportData, onClose }) => {
   )
 }
 
+// ── Clinical Note Modal ──────────────────────────────────────────────────────
+const ClinicalNoteModal = ({ patient, notes, noteLoading, onClose, onAdd }) => {
+  const [text, setText] = useState('')
+  const [saving, setSaving] = useState(false)
+  const [saveError, setSaveError] = useState(null)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!text.trim()) return
+    setSaving(true)
+    setSaveError(null)
+    try {
+      await onAdd(text)
+      setText('')
+    } catch (err) {
+      setSaveError(err.message)
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  return (
+    <div className='report-modal-overlay' onClick={onClose}>
+      <div className='report-modal cn-modal' onClick={e => e.stopPropagation()}>
+
+        <div className='report-modal-header'>
+          <div className='report-modal-title'>
+            <div className='report-patient-avatar'>
+              {patient.firstName.charAt(0)}{patient.lastName.charAt(0)}
+            </div>
+            <div>
+              <h2>Clinical Notes</h2>
+              <p className='report-patient-email'>{patient.firstName} {patient.lastName}</p>
+            </div>
+          </div>
+          <button className='report-close-btn' onClick={onClose}>✕</button>
+        </div>
+
+        <div className='report-modal-body'>
+          <form className='cn-form' onSubmit={handleSubmit}>
+            <textarea
+              className='cn-textarea'
+              placeholder='Write a clinical note…'
+              value={text}
+              onChange={e => setText(e.target.value)}
+              rows={4}
+            />
+            {saveError && <p className='cn-error'>{saveError}</p>}
+            <button className='cn-submit-btn' type='submit' disabled={saving || !text.trim()}>
+              {saving ? 'Saving…' : 'Add Note'}
+            </button>
+          </form>
+
+          <div className='report-section'>
+            <h3 className='report-section-title'>Previous Notes</h3>
+            {noteLoading ? (
+              <p className='report-empty'>Loading…</p>
+            ) : notes.length === 0 ? (
+              <p className='report-empty'>No clinical notes yet.</p>
+            ) : (
+              <div className='cn-notes-list'>
+                {notes.map(note => (
+                  <div key={note.id} className='cn-note-item'>
+                    <span className='cn-note-date'>{formatDate(note.createdAt)}</span>
+                    <p className='cn-note-text'>{note.notes}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  )
+}
+
 // ── Main component ──────────────────────────────────────────────────────────
 const Patients = () => {
   const userType = useSelector(userTypeSelector)
@@ -156,6 +233,10 @@ const Patients = () => {
   const [selectedPatient, setSelectedPatient] = useState(null)
   const [reportData, setReportData]       = useState(null)
   const [reportLoading, setReportLoading] = useState(false)
+
+  const [cnPatient, setCnPatient]         = useState(null)
+  const [cnNotes, setCnNotes]             = useState([])
+  const [cnLoading, setCnLoading]         = useState(false)
 
   useEffect(() => {
     if (userType !== 'doctor') return
@@ -203,6 +284,39 @@ const Patients = () => {
   const handleCloseReport = () => {
     setSelectedPatient(null)
     setReportData(null)
+  }
+
+  const handleOpenClinicalNotes = async (patient) => {
+    setCnPatient(patient)
+    setCnLoading(true)
+    setCnNotes([])
+    try {
+      const res = await fetch(`${SERVER}/api/patients/${patient.id}/clinical-notes`, {
+        headers: { 'Content-Type': 'application/json', Authorization: token }
+      })
+      if (res.ok) setCnNotes(await res.json())
+    } finally {
+      setCnLoading(false)
+    }
+  }
+
+  const handleAddClinicalNote = async (text) => {
+    const res = await fetch(`${SERVER}/api/patients/${cnPatient.id}/clinical-notes`, {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json', Authorization: token },
+      body: JSON.stringify({ notes: text })
+    })
+    if (!res.ok) {
+      const data = await res.json()
+      throw new Error(data.message || 'Failed to save note')
+    }
+    const newNote = await res.json()
+    setCnNotes(prev => [newNote, ...prev])
+  }
+
+  const handleCloseClinicalNotes = () => {
+    setCnPatient(null)
+    setCnNotes([])
   }
 
   if (userType !== 'doctor') {
@@ -275,6 +389,12 @@ const Patients = () => {
                       <button className='btn-predictions' disabled>
                         Predictions
                       </button>
+                      <button
+                        className='btn-clinical-notes'
+                        onClick={() => handleOpenClinicalNotes(patient)}
+                      >
+                        Add Clinical Note
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -299,6 +419,17 @@ const Patients = () => {
             onClose={handleCloseReport}
           />
         )
+      )}
+
+      {/* Clinical Note Modal */}
+      {cnPatient && (
+        <ClinicalNoteModal
+          patient={cnPatient}
+          notes={cnNotes}
+          noteLoading={cnLoading}
+          onClose={handleCloseClinicalNotes}
+          onAdd={handleAddClinicalNote}
+        />
       )}
     </div>
   )

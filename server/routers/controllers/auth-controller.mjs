@@ -67,10 +67,9 @@ const logout = async (req, res, next) => {
     if (user) {
       user.token = null
       await user.save()
-      res.status(200).json({ message: 'User logged out' })
-    } else {
-      res.status(401).json({ message: 'Invalid token' })
     }
+
+    res.status(200).json({ message: 'User logged out' })
   } catch (err) {
     next(err)
   }

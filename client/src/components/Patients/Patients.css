@@ -408,6 +408,112 @@
   color: #718096;
 }
 
+/* ── Clinical Note button ── */
+.btn-clinical-notes {
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease;
+  background-color: #7c5cbf;
+  color: white;
+}
+
+.btn-clinical-notes:hover {
+  background-color: #6a4caa;
+}
+
+/* ── Clinical Note Modal ── */
+.cn-modal {
+  max-width: 560px;
+}
+
+.cn-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.cn-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.cn-textarea:focus {
+  border-color: #7c5cbf;
+}
+
+.cn-submit-btn {
+  align-self: flex-end;
+  padding: 8px 20px;
+  background-color: #7c5cbf;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.cn-submit-btn:hover:not(:disabled) {
+  background-color: #6a4caa;
+}
+
+.cn-submit-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.cn-error {
+  font-size: 13px;
+  color: #c0392b;
+  margin: 0;
+}
+
+.cn-notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cn-note-item {
+  background: #f8fafc;
+  border: 1px solid #e8ecf0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cn-note-date {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #9ca3af;
+}
+
+.cn-note-text {
+  font-size: 14px;
+  color: #2c3e50;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 /* ── Responsive ── */
 @media (max-width: 480px) {
   .patients-header {

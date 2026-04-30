@@ -44,11 +44,19 @@ export default function userReducer(state = initialState, action) {
         ...state,
         loading: false,
         error: null,
-        data: {}                // logged out
+        data: {}
+      }
+
+    case `LOGOUT_REJECTED`:
+      localStorage.removeItem('userData')
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        data: {}
       }
 
     case `LOGIN_REJECTED`:
-    case `LOGOUT_REJECTED`:
     case `REGISTER_REJECTED`:
       return {
         ...state,

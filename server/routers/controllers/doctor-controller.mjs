@@ -148,6 +148,78 @@ const getPatientCycleHistory = async (req, res, next) => {
   }
 }
 
+const getPatientOwnNotes = async (req, res, next) => {
+  try {
+    if (req.userType !== 'patient') {
+      return res.status(403).json({ message: 'Only patients can view their own clinical notes' })
+    }
+
+    const notes = await models.clinicalNote.findAll({
+      where: { patientId: req.user.id },
+      include: [{ model: models.doctor, attributes: ['firstName', 'lastName', 'specialization'] }],
+      order: [['createdAt', 'DESC']]
+    })
+
+    res.status(200).json(notes)
+  } catch (err) {
+    next(err)
+  }
+}
+
+const getClinicalNotes = async (req, res, next) => {
+  try {
+    if (req.userType !== 'doctor') {
+      return res.status(403).json({ message: 'Only doctors can view clinical notes' })
+    }
+
+    const { patientId } = req.params
+
+    const patients = await req.user.getPatients({ where: { id: patientId } })
+    if (patients.length === 0) {
+      return res.status(403).json({ message: 'Patient not assigned to you' })
+    }
+
+    const notes = await models.clinicalNote.findAll({
+      where: { patientId, doctorId: req.user.id },
+      order: [['createdAt', 'DESC']]
+    })
+
+    res.status(200).json(notes)
+  } catch (err) {
+    next(err)
+  }
+}
+
+const addClinicalNote = async (req, res, next) => {
+  try {
+    if (req.userType !== 'doctor') {
+      return res.status(403).json({ message: 'Only doctors can add clinical notes' })
+    }
+
+    const { patientId } = req.params
+    const { notes } = req.body
+
+    if (!notes || !notes.trim()) {
+      return res.status(400).json({ message: 'Note content is required' })
+    }
+
+    const patients = await req.user.getPatients({ where: { id: patientId } })
+    if (patients.length === 0) {
+      return res.status(403).json({ message: 'Patient not assigned to you' })
+    }
+
+    const note = await models.clinicalNote.create({
+      notes: notes.trim(),
+      patientId,
+      doctorId: req.user.id
+    })
+
+    res.status(201).json(note)
+  } catch (err) {
+    next(err)
+  }
+}
+
 export default {
   getAllDoctors,
   getAssignedDoctor,
@@ -155,5 +227,8 @@ export default {
   unassignDoctor,
   getMyPatients,
   getPatientLogs,
-  getPatientCycleHistory
+  getPatientCycleHistory,
+  getClinicalNotes,
+  addClinicalNote,
+  getPatientOwnNotes
 }
