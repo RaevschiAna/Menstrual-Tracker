@@ -29,5 +29,6 @@ apiRouter.post('/patients/:patientId/clinical-notes', controllers.doctor.addClin
 
 // Patient's own clinical notes
 apiRouter.get('/clinical-notes', controllers.doctor.getPatientOwnNotes)
+apiRouter.patch('/clinical-notes/:noteId/read', controllers.doctor.markNoteAsRead)
 
 export default apiRouter

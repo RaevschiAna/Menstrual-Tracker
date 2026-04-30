@@ -220,6 +220,31 @@ const addClinicalNote = async (req, res, next) => {
   }
 }
 
+const markNoteAsRead = async (req, res, next) => {
+  try {
+    if (req.userType !== 'patient') {
+      return res.status(403).json({ message: 'Only patients can mark notes as read' })
+    }
+
+    const { noteId } = req.params
+
+    const note = await models.clinicalNote.findOne({
+      where: { id: noteId, patientId: req.user.id }
+    })
+
+    if (!note) {
+      return res.status(404).json({ message: 'Note not found' })
+    }
+
+    note.isRead = true
+    await note.save()
+
+    res.status(200).json({ message: 'Note marked as read' })
+  } catch (err) {
+    next(err)
+  }
+}
+
 export default {
   getAllDoctors,
   getAssignedDoctor,
@@ -230,5 +255,6 @@ export default {
   getPatientCycleHistory,
   getClinicalNotes,
   addClinicalNote,
-  getPatientOwnNotes
+  getPatientOwnNotes,
+  markNoteAsRead
 }

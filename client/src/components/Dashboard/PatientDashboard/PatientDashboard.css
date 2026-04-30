@@ -140,11 +140,37 @@
   border: 1px solid #e8f0f8;
 }
 
-.pd-notifications h3 {
-  margin: 0 0 16px 0;
+.pd-notif-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.pd-notif-header h3 {
+  margin: 0;
   font-size: 20px;
   font-weight: 700;
   color: #2c3e50;
+}
+
+.pd-notif-badge {
+  background: #d4605e;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+  line-height: 1.4;
+}
+
+.pd-notif-label {
+  margin: 0 0 3px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #7c5cbf;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
 }
 
 .pd-empty {

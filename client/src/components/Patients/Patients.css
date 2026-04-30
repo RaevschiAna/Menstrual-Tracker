@@ -191,9 +191,12 @@
 }
 
 .btn-predictions {
-  background-color: #e5e7eb;
-  color: #9ca3af;
-  cursor: not-allowed;
+  background-color: #4a7fa5;
+  color: white;
+}
+
+.btn-predictions:hover {
+  background-color: #3a6f95;
 }
 
 /* ── Report Modal ── */
@@ -406,6 +409,103 @@
 .log-notes {
   font-style: italic;
   color: #718096;
+}
+
+/* ── Predictions modal ── */
+.pm-modal {
+  max-width: 760px;
+  width: 96vw;
+}
+
+.pm-next-period {
+  background: linear-gradient(135deg, #f9eded 0%, #fdf2f2 100%);
+  border: 1px solid #f2c5c5;
+  border-radius: 10px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 4px;
+}
+
+.pm-next-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #c0392b;
+}
+
+.pm-next-date {
+  font-size: 22px;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.pm-next-confidence {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.pm-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.pm-chart-card {
+  background: #fafbfc;
+  border: 1px solid #e8ecf0;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.pm-chart-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #7b95ac;
+  margin: 0 0 10px;
+}
+
+.pm-chart-sub {
+  font-size: 11px;
+  font-weight: 400;
+  color: #9ca3af;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.pm-chart-empty {
+  font-size: 13px;
+  color: #9ca3af;
+  font-style: italic;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.pm-tooltip {
+  background: white;
+  border: 1px solid #e8ecf0;
+  border-radius: 7px;
+  padding: 6px 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+}
+
+.pm-tooltip b {
+  color: #9ca3af;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.pm-tooltip span {
+  color: #2c3e50;
+  font-weight: 700;
 }
 
 /* ── Clinical Note button ── */

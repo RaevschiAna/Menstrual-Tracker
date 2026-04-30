@@ -15,6 +15,7 @@ import UserList from '../UserList'
 import Doctors from '../Doctors'
 import Patients from '../Patients'
 import PatientClinicalNotes from '../PatientClinicalNotes'
+import Predictions from '../Predictions'
 
 import { logout } from '../../stores/actions/user-actions'
 import Sidebar from '../Sidebar'
@@ -107,6 +108,15 @@ const App = () => {
             element={
               <AuthGuard isAuthenticated={isAuthenticated}>
                 <PatientClinicalNotes onLogout={handleLogout} />
+              </AuthGuard>
+            }
+          />
+
+          <Route
+            path='/predictions'
+            element={
+              <AuthGuard isAuthenticated={isAuthenticated}>
+                <Predictions onLogout={handleLogout} />
               </AuthGuard>
             }
           />
