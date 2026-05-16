@@ -48,9 +48,7 @@ patient.hasMany(cycle)
 cycle.belongsTo(patient)
 
 try {
-  await sequelize.sync({
-    alter: true
-  })
+  await sequelize.sync()
 } catch (err) {
   console.warn(err)
 }

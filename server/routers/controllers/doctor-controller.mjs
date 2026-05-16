@@ -7,7 +7,7 @@ const getAllDoctors = async (req, res, next) => {
     }
 
     const doctors = await models.doctor.findAll({
-      attributes: ['id', 'firstName', 'lastName', 'email', 'specialization', 'licenceNumber']
+      attributes: ['id', 'firstName', 'lastName', 'email', 'specialization', 'licenceNumber', 'profilePicture']
     })
 
     res.status(200).json(doctors)
@@ -23,7 +23,7 @@ const getAssignedDoctor = async (req, res, next) => {
     }
 
     const doctors = await req.user.getDoctors({
-      attributes: ['id', 'firstName', 'lastName', 'email', 'specialization', 'licenceNumber']
+      attributes: ['id', 'firstName', 'lastName', 'email', 'specialization', 'licenceNumber', 'profilePicture']
     })
 
     // Return the first (and ideally only) assigned doctor, or null
@@ -92,7 +92,7 @@ const getMyPatients = async (req, res, next) => {
     }
 
     const patients = await req.user.getPatients({
-      attributes: ['id', 'firstName', 'lastName', 'email', 'dateOfBirth', 'height', 'weight', 'notes']
+      attributes: ['id', 'firstName', 'lastName', 'email', 'dateOfBirth', 'height', 'weight', 'notes', 'profilePicture']
     })
 
     res.status(200).json(patients)

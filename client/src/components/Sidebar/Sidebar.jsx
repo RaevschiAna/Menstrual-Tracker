@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import './Sidebar.css'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { SERVER } from '../../config/global'
+
+const userDataSelector = state => state.user.data
 
 const icons = {
   dashboard: (
@@ -52,6 +56,7 @@ const Sidebar = ({ userType, children, onLogout }) => {
   const [isOpen, setIsOpen] = useState(true)
   const navigate = useNavigate()
   const location = useLocation()
+  const userData = useSelector(userDataSelector)
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen)
@@ -84,6 +89,16 @@ const Sidebar = ({ userType, children, onLogout }) => {
     navigate(path)
   }
 
+  const getInitials = () => {
+    const first = userData.firstName?.[0] || ''
+    const last = userData.lastName?.[0] || ''
+    return (first + last).toUpperCase() || '?'
+  }
+
+  const avatarUrl = userData.profilePicture
+    ? `${SERVER}/uploads/${userData.profilePicture}`
+    : null
+
   return (
     <div className="layout">
       <div className={`sidebar ${isOpen ? '' : 'collapsed'}`}>
@@ -111,16 +126,40 @@ const Sidebar = ({ userType, children, onLogout }) => {
             </li>
           ))}
         </ul>
-        {onLogout && (
-          <button className="logout-button" onClick={onLogout}>
+
+        <div className="sidebar-bottom">
+          <button
+            className={`profile-widget ${isActive('/account') ? 'active' : ''}`}
+            onClick={() => navigate('/account')}
+            title={`${userData.firstName || ''} ${userData.lastName || ''}`.trim() || 'Account'}
+          >
             <span className="menu-icon">
-              <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'>
-                <path d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'/><polyline points='16 17 21 12 16 7'/><line x1='21' y1='12' x2='9' y2='12'/>
-              </svg>
+              {avatarUrl ? (
+                <img
+                  src={avatarUrl}
+                  alt="Profile"
+                  className="profile-avatar"
+                />
+              ) : (
+                <span className="profile-initials">{getInitials()}</span>
+              )}
             </span>
-            <span className="menu-text">Logout</span>
+            <span className="menu-text profile-name">
+              {userData.firstName} {userData.lastName}
+            </span>
           </button>
-        )}
+
+          {onLogout && (
+            <button className="logout-button" onClick={onLogout}>
+              <span className="menu-icon">
+                <svg viewBox='0 0 24 24' fill='none' stroke='currentColor' strokeWidth='2' strokeLinecap='round' strokeLinejoin='round'>
+                  <path d='M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'/><polyline points='16 17 21 12 16 7'/><line x1='21' y1='12' x2='9' y2='12'/>
+                </svg>
+              </span>
+              <span className="menu-text">Logout</span>
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="main-content">

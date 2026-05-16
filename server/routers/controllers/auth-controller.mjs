@@ -34,7 +34,7 @@ const login = async (req, res, next) => {
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET)
         user.token = token
         await user.save()
-        res.status(200).json({ token, email: user.email, id: user.id, type: userType, firstName: user.firstName, lastName: user.lastName })
+        res.status(200).json({ token, email: user.email, id: user.id, type: userType, firstName: user.firstName, lastName: user.lastName, profilePicture: user.profilePicture || null })
       } else {
         res.status(401).json({ message: 'Invalid email or password' })
       }
@@ -105,7 +105,7 @@ const register = async (req, res, next) => {
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET)
     user.token = token
     await user.save()
-    res.status(201).json({ token, email: user.email, id: user.id, type: 'patient', firstName: user.firstName, lastName: user.lastName })
+    res.status(201).json({ token, email: user.email, id: user.id, type: 'patient', firstName: user.firstName, lastName: user.lastName, profilePicture: null })
   } catch (err) {
     next(err)
   }

@@ -135,3 +135,28 @@
   white-space: pre-wrap;
   word-break: break-word;
 }
+
+.pcn-note-clamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pcn-expand-btn {
+  margin-top: 8px;
+  background: none;
+  border: none;
+  color: #7c5cbf;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 0;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+
+.pcn-expand-btn:hover {
+  color: #5a3fa0;
+}

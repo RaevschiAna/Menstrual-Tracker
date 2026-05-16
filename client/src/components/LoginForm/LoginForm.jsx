@@ -1,7 +1,7 @@
 import './LoginForm.css'
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { login } from '../../stores/actions/user-actions'
 
 // selectors
@@ -11,7 +11,6 @@ const userErrorSelector = state => state.user.error
 
 const LoginForm = () => {
   const dispatch = useDispatch()
-  const location = useLocation()
   const navigate = useNavigate()
 
   const userData = useSelector(userDataSelector)
@@ -41,10 +40,9 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      const from = location.state?.from || '/'
-      navigate(from)
+      navigate('/')
     }
-  }, [isAuthenticated, location.state, navigate])
+  }, [isAuthenticated, navigate])
 
   return (
     <div className='login-form'>
@@ -75,10 +73,6 @@ const LoginForm = () => {
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
-          <div className='remember-me'>
-            <input type='checkbox' id='remember' />
-            <label htmlFor='remember'>Remember me</label>
-          </div>
           <button onClick={handleLoginClick} disabled={loading} className='login-btn'>
             {loading ? 'Logging in...' : 'Log In'}
           </button>
@@ -90,7 +84,6 @@ const LoginForm = () => {
         </form>
         <div className='login-links'>
           <span>Don't have an account? <button className='link-btn' onClick={handleRegisterClick}>Sign Up</button></span>
-          <button className='link-btn'>Forgot password?</button>
         </div>
       </div>
     </div>

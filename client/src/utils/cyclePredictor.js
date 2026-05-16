@@ -36,7 +36,7 @@ function groupIntoPeriods(dates, gapDays = 2) {
  * @returns {{ nextPeriodStart: Date|null, predictedDays: Date[], confidence: 'high'|'medium'|'low', basedOn: string }}
  */
 export function predictNextPeriod(logs = [], cycleHistory = {}) {
-  // 1. Extract period days from logs
+  // 1. Extract period days from flow-level logs
   const flowDates = (logs || [])
     .filter(l => l.flowLevel && l.flowLevel.trim() !== '')
     .map(l => new Date(l.logDate))
@@ -44,35 +44,49 @@ export function predictNextPeriod(logs = [], cycleHistory = {}) {
 
   const detectedPeriods = groupIntoPeriods(flowDates)
 
-  let avgCycleLength  = cycleHistory.cycleLength  || DEFAULT_CYCLE_LENGTH
+  // Also find the most recent explicit day-1 log as a period-start anchor.
+  // Match "1", "Day 1", "day 1", "cycle day 1", etc.
+  const dayOneDates = (logs || [])
+    .filter(l => {
+      const raw = String(l.cycleDay || '').trim()
+      const num = parseInt(raw.replace(/\D/g, ''), 10)
+      return num === 1
+    })
+    .map(l => new Date(l.logDate))
+    .sort((a, b) => b - a)
+  const latestDayOne = dayOneDates.length > 0 ? dayOneDates[0] : null
+
+  let avgCycleLength    = cycleHistory.cycleLength    || DEFAULT_CYCLE_LENGTH
   let avgPeriodDuration = cycleHistory.periodDuration || DEFAULT_PERIOD_DURATION
-  let lastPeriodStart = null
+  let lastPeriodStart   = null
   let confidence = 'low'
   let basedOn = 'defaults'
 
   if (detectedPeriods.length >= 1) {
-    // cycleLength and periodDuration always come from cycle history (never
-    // recalculated from logs — the patient's profile values are authoritative).
-    // Logs only determine the anchor date (lastPeriodStart) and confidence level.
     lastPeriodStart = detectedPeriods[detectedPeriods.length - 1].start
     confidence = detectedPeriods.length >= 3 ? 'high'
-               : detectedPeriods.length === 2 ? 'medium'
                : 'medium'
     basedOn = detectedPeriods.length === 1
       ? '1 logged cycle + profile data'
       : `${detectedPeriods.length} logged cycles`
-
   } else if (cycleHistory.periodStart) {
-    // Only one period in logs — use it as anchor, rely on history for length
-    lastPeriodStart = detectedPeriods[0].start
-    confidence = 'medium'
-    basedOn = '1 logged cycle + profile data'
-
-  } else if (cycleHistory.periodStart) {
-    // No flow logs at all — use manually entered cycle history
     lastPeriodStart = new Date(cycleHistory.periodStart)
     confidence = 'medium'
     basedOn = 'profile data'
+  }
+
+  // If there's a day-1 log that is more recent than the flow-detected anchor,
+  // use it as the definitive period start.
+  if (latestDayOne) {
+    const latestDayOneTime = latestDayOne.getTime()
+    const flowAnchorTime   = lastPeriodStart ? lastPeriodStart.getTime() : -Infinity
+    if (latestDayOneTime >= flowAnchorTime) {
+      lastPeriodStart = latestDayOne
+      if (confidence === 'low') {
+        confidence = 'medium'
+        basedOn = 'day-1 log + profile data'
+      }
+    }
   }
 
   if (!lastPeriodStart) {

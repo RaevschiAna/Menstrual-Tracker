@@ -55,6 +55,16 @@ function groupPeriods(dates, gapDays = 2) {
   return out
 }
 
+const PatientAvatar = ({ patient, className }) => (
+  patient.profilePicture
+    ? <img
+        src={`${SERVER}/uploads/${patient.profilePicture}`}
+        alt='Patient'
+        className={`patient-avatar-img ${className || ''}`}
+      />
+    : <span>{patient.firstName.charAt(0)}{patient.lastName.charAt(0)}</span>
+)
+
 const ChartEmpty = ({ msg }) => (
   <div className='pm-chart-empty'>{msg || 'Not enough data yet.'}</div>
 )
@@ -144,7 +154,7 @@ const PredictionsModal = ({ patient, predData, onClose }) => {
         <div className='report-modal-header'>
           <div className='report-modal-title'>
             <div className='report-patient-avatar'>
-              {patient.firstName.charAt(0)}{patient.lastName.charAt(0)}
+              <PatientAvatar patient={patient} />
             </div>
             <div>
               <h2>Predictions</h2>
@@ -290,7 +300,7 @@ const ReportModal = ({ patient, reportData, onClose }) => {
         <div className='report-modal-header'>
           <div className='report-modal-title'>
             <div className='report-patient-avatar'>
-              {patient.firstName.charAt(0)}{patient.lastName.charAt(0)}
+              <PatientAvatar patient={patient} />
             </div>
             <div>
               <h2>{patient.firstName} {patient.lastName}</h2>
@@ -424,7 +434,7 @@ const ClinicalNoteModal = ({ patient, notes, noteLoading, onClose, onAdd }) => {
         <div className='report-modal-header'>
           <div className='report-modal-title'>
             <div className='report-patient-avatar'>
-              {patient.firstName.charAt(0)}{patient.lastName.charAt(0)}
+              <PatientAvatar patient={patient} />
             </div>
             <div>
               <h2>Clinical Notes</h2>
@@ -643,9 +653,7 @@ const Patients = () => {
               return (
                 <div key={patient.id} className='patient-card'>
                   <div className='patient-avatar'>
-                    <span className='avatar-initials'>
-                      {patient.firstName.charAt(0)}{patient.lastName.charAt(0)}
-                    </span>
+                    <PatientAvatar patient={patient} />
                   </div>
 
                   <div className='patient-info'>

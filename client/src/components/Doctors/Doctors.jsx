@@ -7,6 +7,7 @@ import {
   assignDoctorToPatient,
   unassignDoctor
 } from '../../stores/actions/doctor-actions'
+import { SERVER } from '../../config/global'
 
 const userTypeSelector = state => state.user.data.type
 const doctorsSelector  = state => state.doctor.data
@@ -119,7 +120,10 @@ const Doctors = () => {
       {assigned && (
         <div className='doctors-current-banner'>
           <div className='current-avatar'>
-            <span>{assigned.firstName.charAt(0)}{assigned.lastName.charAt(0)}</span>
+            {assigned.profilePicture
+              ? <img src={`${SERVER}/uploads/${assigned.profilePicture}`} alt='Doctor' className='doctor-avatar-img' />
+              : <span>{assigned.firstName.charAt(0)}{assigned.lastName.charAt(0)}</span>
+            }
           </div>
           <div className='current-info'>
             <p className='current-label'>Your current doctor</p>
@@ -159,9 +163,10 @@ const Doctors = () => {
                 className={`doctor-item ${isAssigned ? 'assigned' : ''} ${isPending ? 'pending' : ''}`}
               >
                 <div className='doctor-avatar'>
-                  <span className='avatar-initials'>
-                    {doctor.firstName.charAt(0)}{doctor.lastName.charAt(0)}
-                  </span>
+                  {doctor.profilePicture
+                    ? <img src={`${SERVER}/uploads/${doctor.profilePicture}`} alt='Doctor' className='doctor-avatar-img' />
+                    : <span className='avatar-initials'>{doctor.firstName.charAt(0)}{doctor.lastName.charAt(0)}</span>
+                  }
                 </div>
 
                 <div className='doctor-content'>

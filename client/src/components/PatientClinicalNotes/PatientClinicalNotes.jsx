@@ -17,9 +17,13 @@ const PatientClinicalNotes = ({ onLogout }) => {
   const token    = useSelector(tokenSelector)
   const userType = useSelector(userTypeSelector)
 
-  const [notes, setNotes]     = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError]     = useState(null)
+  const [notes, setNotes]       = useState([])
+  const [loading, setLoading]   = useState(false)
+  const [error, setError]       = useState(null)
+  const [expanded, setExpanded] = useState({})
+
+  const toggleExpanded = (id) =>
+    setExpanded(prev => ({ ...prev, [id]: !prev[id] }))
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -69,6 +73,8 @@ const PatientClinicalNotes = ({ onLogout }) => {
             <div className='pcn-list'>
               {notes.map(note => {
                 const doc = note.doctor
+                const isExpanded = !!expanded[note.id]
+                const isLong = note.notes && note.notes.split('\n').length > 4 || (note.notes && note.notes.length > 300)
                 return (
                   <div key={note.id} className='pcn-note-card'>
                     <div className='pcn-note-meta'>
@@ -82,7 +88,17 @@ const PatientClinicalNotes = ({ onLogout }) => {
                       )}
                       <span className='pcn-date'>{formatDate(note.createdAt)}</span>
                     </div>
-                    <p className='pcn-note-text'>{note.notes}</p>
+                    <p className={`pcn-note-text ${!isExpanded && isLong ? 'pcn-note-clamped' : ''}`}>
+                      {note.notes}
+                    </p>
+                    {isLong && (
+                      <button
+                        className='pcn-expand-btn'
+                        onClick={() => toggleExpanded(note.id)}
+                      >
+                        {isExpanded ? 'Show less ▲' : 'Show more ▼'}
+                      </button>
+                    )}
                   </div>
                 )
               })}

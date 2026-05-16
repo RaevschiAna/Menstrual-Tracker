@@ -91,7 +91,10 @@ const PatientDashboard = () => {
       <div className='pd-header'>
         <div className='pd-welcome-row'>
           <div className='pd-avatar'>
-            {user?.firstName ? user.firstName.charAt(0).toUpperCase() : 'P'}
+            {user?.profilePicture
+              ? <img src={`${SERVER}/uploads/${user.profilePicture}`} alt='Profile' className='pd-avatar-img' />
+              : (user?.firstName ? user.firstName.charAt(0).toUpperCase() : 'P')
+            }
           </div>
           <h1 className='pd-welcome'>Welcome, {user?.firstName || 'Patient'}!</h1>
         </div>

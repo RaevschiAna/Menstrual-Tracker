@@ -214,7 +214,7 @@ const Predictions = ({ onLogout }) => {
           <div className='pred-card'>
             <h3 className='pred-card-title'>Flow Level Timeline</h3>
             {flowData.length === 0 ? <EmptyChart /> : (
-              <ResponsiveContainer width='100%' height={220}>
+              <ResponsiveContainer width='100%' height={240}>
                 <BarChart data={flowData} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
                   <CartesianGrid strokeDasharray='3 3' stroke='#f0f0f0' />
                   <XAxis dataKey='date' tick={{ fontSize: 11 }} interval='preserveStartEnd' />
@@ -240,7 +240,7 @@ const Predictions = ({ onLogout }) => {
           <div className='pred-card'>
             <h3 className='pred-card-title'>Pain Level Over Time</h3>
             {painData.length === 0 ? <EmptyChart message='No pain data logged yet.' /> : (
-              <ResponsiveContainer width='100%' height={220}>
+              <ResponsiveContainer width='100%' height={240}>
                 <AreaChart data={painData} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
                   <defs>
                     <linearGradient id='painGrad' x1='0' y1='0' x2='0' y2='1'>
@@ -266,64 +266,59 @@ const Predictions = ({ onLogout }) => {
             )}
           </div>
 
-          {/* ── Charts 3 & 4 side by side ── */}
-          <div className='pred-row'>
-
-            {/* Chart 3: Mood Distribution */}
-            <div className='pred-card pred-card-half'>
-              <h3 className='pred-card-title'>Mood Distribution</h3>
-              {moodData.length === 0 ? <EmptyChart message='No mood data logged yet.' /> : (
-                <ResponsiveContainer width='100%' height={220}>
-                  <BarChart data={moodData} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
-                    <CartesianGrid strokeDasharray='3 3' stroke='#f0f0f0' />
-                    <XAxis dataKey='mood' tick={{ fontSize: 11 }} />
-                    <YAxis allowDecimals={false} tick={{ fontSize: 11 }} width={28} />
-                    <Tooltip content={<MoodTooltip />} />
-                    <Bar dataKey='count' radius={[4, 4, 0, 0]}>
-                      {moodData.map((entry, i) => (
-                        <Cell key={i} fill={MOOD_COLORS[entry.mood] || '#a78bda'} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              )}
-            </div>
-
-            {/* Chart 4: Symptoms Frequency */}
-            <div className='pred-card pred-card-half'>
-              <h3 className='pred-card-title'>Symptoms Frequency</h3>
-              {symptomsData.length === 0 ? <EmptyChart message='No symptoms logged yet.' /> : (
-                <ResponsiveContainer width='100%' height={220}>
-                  <BarChart
-                    data={symptomsData}
-                    layout='vertical'
-                    margin={{ top: 8, right: 24, left: 8, bottom: 8 }}
-                  >
-                    <CartesianGrid strokeDasharray='3 3' stroke='#f0f0f0' horizontal={false} />
-                    <XAxis type='number' allowDecimals={false} tick={{ fontSize: 11 }} />
-                    <YAxis
-                      type='category'
-                      dataKey='symptom'
-                      tick={{ fontSize: 11 }}
-                      width={80}
-                    />
-                    <Tooltip content={<SymptomsTooltip />} />
-                    <Bar dataKey='count' fill='#7c5cbf' radius={[0, 4, 4, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              )}
-            </div>
-
+          {/* ── Chart 3: Mood Distribution ── */}
+          <div className='pred-card'>
+            <h3 className='pred-card-title'>Mood Distribution</h3>
+            {moodData.length === 0 ? <EmptyChart message='No mood data logged yet.' /> : (
+              <ResponsiveContainer width='100%' height={240}>
+                <BarChart data={moodData} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
+                  <CartesianGrid strokeDasharray='3 3' stroke='#f0f0f0' />
+                  <XAxis dataKey='mood' tick={{ fontSize: 11 }} />
+                  <YAxis allowDecimals={false} tick={{ fontSize: 11 }} width={28} />
+                  <Tooltip content={<MoodTooltip />} />
+                  <Bar dataKey='count' radius={[4, 4, 0, 0]}>
+                    {moodData.map((entry, i) => (
+                      <Cell key={i} fill={MOOD_COLORS[entry.mood] || '#a78bda'} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            )}
           </div>
 
-          {/* ── Chart 5: Cycle Length History ── */}
+          {/* ── Chart 4: Symptoms Frequency ── */}
           <div className='pred-card'>
+            <h3 className='pred-card-title'>Symptoms Frequency</h3>
+            {symptomsData.length === 0 ? <EmptyChart message='No symptoms logged yet.' /> : (
+              <ResponsiveContainer width='100%' height={240}>
+                <BarChart
+                  data={symptomsData}
+                  layout='vertical'
+                  margin={{ top: 8, right: 24, left: 8, bottom: 8 }}
+                >
+                  <CartesianGrid strokeDasharray='3 3' stroke='#f0f0f0' horizontal={false} />
+                  <XAxis type='number' allowDecimals={false} tick={{ fontSize: 11 }} />
+                  <YAxis
+                    type='category'
+                    dataKey='symptom'
+                    tick={{ fontSize: 11 }}
+                    width={80}
+                  />
+                  <Tooltip content={<SymptomsTooltip />} />
+                  <Bar dataKey='count' fill='#7c5cbf' radius={[0, 4, 4, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            )}
+          </div>
+
+          {/* ── Chart 5: Cycle Length History (full width) ── */}
+          <div className='pred-card pred-card-full'>
             <h3 className='pred-card-title'>Cycle Length History</h3>
             <p className='pred-card-sub'>Dashed line = your configured average ({avgCycleLength} days)</p>
             {cycleLengthData.length === 0 ? (
               <EmptyChart message='At least 2 logged periods are needed to calculate cycle lengths.' />
             ) : (
-              <ResponsiveContainer width='100%' height={220}>
+              <ResponsiveContainer width='100%' height={240}>
                 <BarChart data={cycleLengthData} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
                   <CartesianGrid strokeDasharray='3 3' stroke='#f0f0f0' />
                   <XAxis dataKey='cycle' tick={{ fontSize: 11 }} />

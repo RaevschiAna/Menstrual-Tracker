@@ -1,14 +1,16 @@
 .pred-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  /* escape the 30px padding of main-content on all sides */
+  margin: -30px;
+  min-height: calc(100vh + 0px);
   background-color: #f8f9fa;
 }
 
 /* ── Header ── */
 .pred-header {
   background-color: white;
-  padding: 16px 20px;
+  padding: 16px 24px;
   border-bottom: 1px solid #e0e0e0;
   flex-shrink: 0;
 }
@@ -29,11 +31,11 @@
 /* ── Body ── */
 .pred-body {
   flex: 1;
-  overflow-y: auto;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  padding: 20px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-content: start;
 }
 
 /* ── Card ── */
@@ -64,15 +66,9 @@
   margin: 0 0 14px;
 }
 
-/* ── Side-by-side row ── */
-.pred-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.pred-card-half {
-  min-width: 0;
+/* ── Full-width card spanning both columns ── */
+.pred-card-full {
+  grid-column: 1 / -1;
 }
 
 /* ── Empty state ── */
@@ -131,14 +127,19 @@
 }
 
 /* ── Responsive ── */
-@media (max-width: 640px) {
-  .pred-row {
-    grid-template-columns: 1fr;
+@media (max-width: 720px) {
+  .pred-container {
+    margin: -12px;
   }
 
   .pred-body {
+    grid-template-columns: 1fr;
     padding: 12px;
     gap: 12px;
+  }
+
+  .pred-card-full {
+    grid-column: 1;
   }
 
   .pred-card {

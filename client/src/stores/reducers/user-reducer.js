@@ -64,6 +64,47 @@ export default function userReducer(state = initialState, action) {
         error: action.payload?.message || action.error || 'User auth error'
       }
 
+    case `GET_PROFILE_PENDING`:
+    case `UPDATE_PROFILE_PENDING`:
+    case `UPLOAD_PROFILE_PICTURE_PENDING`:
+      return {
+        ...state,
+        loading: true,
+        error: null
+      }
+
+    case `GET_PROFILE_FULFILLED`:
+    case `UPDATE_PROFILE_FULFILLED`: {
+      const updated = { ...state.data, ...action.payload }
+      localStorage.setItem('userData', JSON.stringify(updated))
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        data: updated
+      }
+    }
+
+    case `UPLOAD_PROFILE_PICTURE_FULFILLED`: {
+      const updated = { ...state.data, profilePicture: action.payload.profilePicture }
+      localStorage.setItem('userData', JSON.stringify(updated))
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        data: updated
+      }
+    }
+
+    case `GET_PROFILE_REJECTED`:
+    case `UPDATE_PROFILE_REJECTED`:
+    case `UPLOAD_PROFILE_PICTURE_REJECTED`:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload?.message || action.error || 'Profile error'
+      }
+
     default:
       return state
   }

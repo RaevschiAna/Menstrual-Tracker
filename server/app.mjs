@@ -1,7 +1,11 @@
 import express from 'express'
+import { fileURLToPath } from 'url'
+import path from 'path'
 import routers from './routers/index.mjs'
 import middleware from './middleware/index.mjs'
 import cors from 'cors'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const app = express()
 
@@ -13,6 +17,7 @@ const corsOptions = {
 // initial middlerware
 app.use(cors(corsOptions))
 app.use(express.json())
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 // routers
 app.use('/auth', routers.auth)

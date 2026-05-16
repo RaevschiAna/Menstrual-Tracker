@@ -19,6 +19,7 @@ import Predictions from '../Predictions'
 
 import { logout } from '../../stores/actions/user-actions'
 import Sidebar from '../Sidebar'
+import Account from '../Account/Account'
 
 // selectors
 const userDataSelector = state => state.user.data
@@ -126,6 +127,15 @@ const App = () => {
             element={
               <AuthGuard isAuthenticated={isAuthenticated}>
                 <UserList onLogout={handleLogout} />
+              </AuthGuard>
+            }
+          />
+
+          <Route
+            path='/account'
+            element={
+              <AuthGuard isAuthenticated={isAuthenticated}>
+                <Account onLogout={handleLogout} />
               </AuthGuard>
             }
           />

@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getDailyLogs } from '../../stores/actions/daily-log-actions'
 import Sidebar from '../Sidebar/Sidebar'
+import { SERVER } from '../../config/global'
 
 const userTypeSelector = state => state.user.data.type
 const userSelector = state => state.user.data
@@ -18,6 +19,7 @@ const DailyLogList = ({ onLogout }) => {
   const logs = useSelector(logsSelector)
   const loading = useSelector(loadingSelector)
   const [filter, setFilter] = useState('all')
+  const [sort, setSort] = useState('date')
 
   useEffect(() => {
     const fetchLogs = async () => {
@@ -42,15 +44,32 @@ const DailyLogList = ({ onLogout }) => {
     })
   }
 
-  const getFilteredLogs = () => {
+  const FLOW_ORDER = { heavy: 3, medium: 2, light: 1 }
+
+  const getFilteredSortedLogs = () => {
+    let result = [...logs]
+
     if (filter === 'today') {
       const today = new Date().toDateString()
-      return logs.filter(log => new Date(log.logDate).toDateString() === today)
+      result = result.filter(log => new Date(log.logDate).toDateString() === today)
     }
-    return logs
+
+    if (sort === 'date') {
+      result.sort((a, b) => new Date(b.logDate) - new Date(a.logDate))
+    } else if (sort === 'flow') {
+      result.sort((a, b) => {
+        const fa = FLOW_ORDER[(a.flowLevel || '').toLowerCase()] || 0
+        const fb = FLOW_ORDER[(b.flowLevel || '').toLowerCase()] || 0
+        return fb - fa
+      })
+    } else if (sort === 'pain') {
+      result.sort((a, b) => (b.painLevel ?? 0) - (a.painLevel ?? 0))
+    }
+
+    return result
   }
 
-  const filteredLogs = getFilteredLogs()
+  const filteredLogs = getFilteredSortedLogs()
 
   return (
     <Sidebar userType={userType} onLogout={onLogout}>
@@ -58,10 +77,14 @@ const DailyLogList = ({ onLogout }) => {
         {/* Header */}
         <div className='dll-top-header'>
           <h1>Daily Log Entry</h1>
-          <select className='dll-sort-select'>
-            <option>Sort by Date</option>
-            <option>Sort by Flow</option>
-            <option>Sort by Pain</option>
+          <select
+            className='dll-sort-select'
+            value={sort}
+            onChange={e => setSort(e.target.value)}
+          >
+            <option value='date'>Sort by Date</option>
+            <option value='flow'>Sort by Flow</option>
+            <option value='pain'>Sort by Pain</option>
           </select>
         </div>
 
@@ -99,7 +122,10 @@ const DailyLogList = ({ onLogout }) => {
             {filteredLogs.map(log => (
               <div key={log.id} className='dll-entry-row'>
                 <div className='dll-entry-avatar'>
-                  {user?.firstName ? user.firstName.charAt(0).toUpperCase() : 'P'}
+                  {user?.profilePicture
+                    ? <img src={`${SERVER}/uploads/${user.profilePicture}`} alt='Profile' className='dll-entry-avatar-img' />
+                    : (user?.firstName ? user.firstName.charAt(0).toUpperCase() : 'P')
+                  }
                 </div>
                 <div className='dll-entry-info'>
                   <span className='dll-entry-name'>{user?.firstName || 'Patient'} {user?.lastName || ''}</span>

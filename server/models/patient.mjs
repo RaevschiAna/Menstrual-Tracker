@@ -50,6 +50,10 @@ export default (sequelize, DataTypes) => {
     },
     token:{
       type:DataTypes.TEXT
+    },
+    profilePicture: {
+      type: DataTypes.TEXT,
+      allowNull: true
     }
   });
 };

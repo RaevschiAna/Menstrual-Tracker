@@ -30,7 +30,6 @@ const RegisterForm = () => {
 
     const isAuthenticated = !!userData.token
     const [formError, setFormError] = useState('')
-    const [hasSubmitted, setHasSubmitted] = useState(false)
 
     const handleRegisterClick = async () => {
         if (!email.trim() || !password || !firstName.trim() || !lastName.trim() || !dateOfBirth || !height || !weight) {
@@ -39,22 +38,15 @@ const RegisterForm = () => {
         }
 
         setFormError('')
-        setHasSubmitted(true)
         const action = await register(email.trim(), password, firstName.trim(), lastName.trim(), dateOfBirth, Number(height), Number(weight))
         dispatch(action)
     }
 
     useEffect(() => {
-        if (hasSubmitted && !loading && !error) {
-            navigate('/login')
+        if (isAuthenticated) {
+            navigate('/')
         }
-    }, [hasSubmitted, loading, error, navigate])
-
-    useEffect(() => {
-        if (error) {
-            setHasSubmitted(false)
-        }
-    }, [error])
+    }, [isAuthenticated, navigate])
 
 
     return (

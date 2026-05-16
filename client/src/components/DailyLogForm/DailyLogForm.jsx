@@ -95,7 +95,7 @@ const DailyLogForm = ({ onLogout }) => {
                 name='cycleDay'
                 value={formData.cycleDay}
                 onChange={handleChange}
-                placeholder='e.g. Day 5'
+                placeholder='e.g. 1 (day 1 = period start)'
               />
             </div>
           </div>
